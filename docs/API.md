@@ -176,13 +176,13 @@ interface GetAvailableRequest {
 // POST /timecard/update
 interface UpdateRequest {
   jwt: string;
+  id: string;
   data: {
-    id: string;
     projectName: string;
-    startTime: string;
-    endTime: string;
     duration: number;
   }[];
+  startTime: string;
+  endTime: string;
 }
 
 interface UpdateResponse {}
