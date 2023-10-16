@@ -159,14 +159,17 @@ interface GetRequest {
 }
 
 interface GetResponse {
-  data: {
-    id: string
-    isSave: boolean;
-    projectName: string;
-    startTime: string;
-    endTime: string;
-    duration: number;
-  }[];
+  data: Timecard[];
+}
+
+// GET /timecard/available
+// 获取可以使用的考勤卡：isSave=false
+interface GetAvailableRequest {
+  jwt: string;
+}
+
+interface GetAvailableRequest {
+  data: Timecard[];
 }
 
 // POST /timecard/update
