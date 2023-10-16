@@ -1,6 +1,8 @@
 package com.salary.reports;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -9,6 +11,8 @@ import java.math.BigDecimal;
  * 描述：
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class EmployeeSalaryReport {
     private String employeeId;
     private String employeeName;
@@ -16,14 +20,4 @@ public class EmployeeSalaryReport {
     private String endTime;
     private BigDecimal salary;
 
-    public EmployeeSalaryReport() {
-    }
-
-    public EmployeeSalaryReport(String employeeId, String employeeName, String startTime, String endTime, BigDecimal salary) {
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.salary = salary;
-    }
 }

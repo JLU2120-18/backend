@@ -1,6 +1,8 @@
 package com.salary.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -8,6 +10,8 @@ import java.math.BigDecimal;
  * 描述：
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PurchaseOrder {
     private String id;
     private String employeeId;
@@ -17,16 +21,4 @@ public class PurchaseOrder {
     private String date;
     private BigDecimal pay;
 
-    public PurchaseOrder() {
-    }
-
-    public PurchaseOrder(String id, String employeeId, String productName, String phone, String address, String date, BigDecimal pay) {
-        this.id = id;
-        this.employeeId = employeeId;
-        this.productName = productName;
-        this.phone = phone;
-        this.address = address;
-        this.date = date;
-        this.pay = pay;
-    }
 }

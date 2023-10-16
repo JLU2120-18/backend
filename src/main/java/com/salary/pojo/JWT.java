@@ -1,6 +1,8 @@
 package com.salary.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Jialin
@@ -8,15 +10,10 @@ import lombok.Data;
  */
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class JWT {
     private String id;
     private String role;
 
-    public JWT() {
-    }
-
-    public JWT(String id, String role) {
-        this.id = id;
-        this.role = role;
-    }
 }
