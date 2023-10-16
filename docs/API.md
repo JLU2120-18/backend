@@ -181,8 +181,6 @@ interface UpdateRequest {
     projectName: string;
     duration: number;
   }[];
-  startTime: string;
-  endTime: string;
 }
 
 interface UpdateResponse {}
