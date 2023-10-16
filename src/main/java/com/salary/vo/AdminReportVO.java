@@ -1,5 +1,6 @@
 package com.salary.vo;
 
+import com.salary.enums.ResponeEnum;
 import lombok.Data;
 
 /**
@@ -18,7 +19,7 @@ public class AdminReportVO<T> {
         return new AdminReportVO<>(data);
     }
 
-    public static <T> AdminReportVO<T> error(){
-        return new AdminReportVO<>(null);
+    public static  AdminReportVO<String> error(){
+        return new AdminReportVO<>(ResponeEnum.ERROR.getDesc());
     }
 }
