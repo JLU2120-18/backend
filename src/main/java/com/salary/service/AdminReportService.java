@@ -24,12 +24,15 @@ public class AdminReportService {
         if (employeeId == null){
             return AdminReportVO.error();
         }else{
+            //查询考勤卡，计算总时长
             List<Timecard> timecards = adminReportMapper.selectTimeCard(employeeId);
             int duration = 0;
             for(Timecard timecard : timecards){
                 duration += timecard.getDuration();
             }
+            //查询员工名字
             String name = adminReportMapper.selectName(employeeId);
+            //封装信息返回
             EmployeeDurationReport[] employeeDurationReports = new EmployeeDurationReport[1];
             EmployeeDurationReport employeeDurationReport = new EmployeeDurationReport(
                 employeeId,name,startTime,endTime,duration
