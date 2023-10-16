@@ -45,7 +45,8 @@ interface Response {
 // POST /employee_report/create
 interface Request {
   type: 'duration' | 'proj_duration' | 'vacation' | 'salary';
-  project_name: string;
+  jwt: string;
+  project_name?: string;
   start_time: string;
   end_time: string;
 }
@@ -61,7 +62,7 @@ interface Response {
 interface CreateRequest {
   type: 'salary' | 'commission' | 'wage'; // 月薪 ｜ 佣金 ｜ 时薪
   origin_id: string; // 员工名字的拼音，后端自动检测拼音是否重复，如有重复要自动加上数字
-  name: string; // 员工名字
+  username: string; // 员工名字
   address: string;
   socsec_id: string;
   tax_rate: number;
@@ -75,7 +76,6 @@ interface CreateRequest {
 
 interface CreateResponse extends CreateRequest {
   id: string; // 新的 id，一般是员工拼音 + 数字：如果没有拼音就不用数字
-  jwt: string;
 }
 
 // GET /employee/get
