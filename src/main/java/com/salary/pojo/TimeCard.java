@@ -8,7 +8,7 @@ import java.math.BigDecimal;
  * 描述：
  */
 @Data
-public class Timecard {
+public class TimeCard {
     private String id;
     private String employeeId;
     private String isSave;
@@ -16,10 +16,10 @@ public class Timecard {
     private String endTime;
     private BigDecimal duration;
 
-    public Timecard() {
+    public TimeCard() {
     }
 
-    public Timecard(String id, String employeeId, String isSave, String startTime, String endTime, BigDecimal duration) {
+    public TimeCard(String id, String employeeId, String isSave, String startTime, String endTime, BigDecimal duration) {
         this.id = id;
         this.employeeId = employeeId;
         this.isSave = isSave;

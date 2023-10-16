@@ -2,7 +2,7 @@ package com.salary.service;
 
 import com.salary.dao.AdminReportMapper;
 import com.salary.dao.UserMapper;
-import com.salary.pojo.Timecard;
+import com.salary.pojo.TimeCard;
 import com.salary.pojo.User;
 import com.salary.reports.EmployeeDurationReport;
 import com.salary.reports.EmployeeSalaryReport;
@@ -34,9 +34,9 @@ public class AdminReportService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }else{
             //查询考勤卡，计算总时长
-            List<Timecard> timecards = adminReportMapper.selectTimeCard(employeeId);
+            List<TimeCard> timecards = adminReportMapper.selectTimeCard(employeeId);
             BigDecimal duration = new BigDecimal(0);
-            for(Timecard timecard : timecards){
+            for(TimeCard timecard : timecards){
                 duration = duration.add(timecard.getDuration());
             }
             //查询员工名字
@@ -72,8 +72,8 @@ public class AdminReportService {
         //时薪
         if (type.equals("wage")){
             //获取考勤卡，要注意是否可以加班以及加班工资计算
-            List<Timecard> timecards = adminReportMapper.selectTimeCard(employeeId);
-            for(Timecard timecard : timecards){
+            List<TimeCard> timecards = adminReportMapper.selectTimeCard(employeeId);
+            for(TimeCard timecard : timecards){
                 BigDecimal x = new BigDecimal(8);
                 BigDecimal duration = timecard.getDuration();
                 BigDecimal hourWage = user.getSalary();
