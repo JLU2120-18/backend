@@ -2,6 +2,8 @@ package com.salary.reports;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * 描述：
  */
@@ -11,12 +13,12 @@ public class SalaryReport {
     private String employeeName;
     private String startTime;
     private String endTime;
-    private Integer salary;
+    private BigDecimal salary;
 
     public SalaryReport() {
     }
 
-    public SalaryReport(String employeeId, String employeeName, String startTime, String endTime, Integer salary) {
+    public SalaryReport(String employeeId, String employeeName, String startTime, String endTime, BigDecimal salary) {
         this.employeeId = employeeId;
         this.employeeName = employeeName;
         this.startTime = startTime;

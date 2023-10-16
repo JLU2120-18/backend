@@ -4,10 +4,12 @@ import com.salary.form.AdminReportForm;
 import com.salary.service.AdminReportService;
 import com.salary.vo.AdminReportVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * 描述：薪资管理员controller层
@@ -30,7 +32,8 @@ public class AdminReportController {
 //            return AdminReportVO.error();
             return adminReportService.createSalary(startTime,endTime,employeeId);
         }else{
-            return AdminReportVO.error();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
         }
     }
 

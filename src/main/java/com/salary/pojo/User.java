@@ -2,6 +2,8 @@ package com.salary.pojo;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 /**
  * 描述：
  */
@@ -11,12 +13,12 @@ public class User {
     private String username;
     private String address;
     private String socsecId;
-    private Integer taxRate;
-    private Integer otherCast;
+    private BigDecimal taxRate;
+    private BigDecimal otherCast;
     private String phone;
-    private Integer hourWage;
-    private Integer  salary;
-    private Integer  commissionRate;
+    private BigDecimal hourWage;
+    private BigDecimal  salary;
+    private BigDecimal  commissionRate;
     private Integer  durationLimit; // 0 代表可以加班
     private String type;    //'salary' | 'commission' | 'wage'
     private String payment;   //'mail' | 'receive' | 'bank'
@@ -27,7 +29,7 @@ public class User {
     public User() {
     }
 
-    public User(String id, String username, String address, String socsecId, Integer taxRate, Integer otherCast, String phone, Integer hourWage, Integer salary, Integer commissionRate, Integer durationLimit, String type) {
+    public User(String id, String username, String address, String socsecId, BigDecimal taxRate, BigDecimal otherCast, String phone, BigDecimal hourWage, BigDecimal salary, BigDecimal commissionRate, Integer durationLimit, String type) {
         this.id = id;
         this.username = username;
         this.address = address;
