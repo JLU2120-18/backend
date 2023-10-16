@@ -14,12 +14,12 @@
     <sql id="Base_Column_List">
         id, employee_id, is_save, start_time, end_time, duration
     </sql>
-    <select id="selectTimeCard" resultMap="BaseResultMap">
+    <select id="selectTimeCard" resultType="com.salary.pojo.TimeCard">
         select
-            <include refid="Base_Column_List"></include>
+            <include refid="Base_Column_List"/>
         from time_card where employee_id = #{employeeId} order by start_time;
     </select>
-    <select id="selectName" resultMap="BaseResultMap" >
+    <select id="selectName" resultMap="BaseResultMap">
         select username
         from user
         where id = #{employeeId};
