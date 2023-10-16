@@ -30,9 +30,9 @@ interface Response {
 // POST /admin_report/create
 interface Request {
   type: 'duration' | 'salary';
-  start_time: string;
-  end_time: string;
-  employee_id: string;
+  startTime: string;
+  endTime: string;
+  employeeId: string;
 }
 
 interface Response {
@@ -46,9 +46,9 @@ interface Response {
 interface Request {
   type: 'duration' | 'proj_duration' | 'vacation' | 'salary';
   jwt: string;
-  project_name?: string;
-  start_time: string;
-  end_time: string;
+  projectName?: string;
+  startTime: string;
+  endTime: string;
 }
 
 interface Response {
@@ -61,17 +61,17 @@ interface Response {
 // POST /employee/create
 interface CreateRequest {
   type: 'salary' | 'commission' | 'wage'; // 月薪 ｜ 佣金 ｜ 时薪
-  origin_id: string; // 员工名字的拼音，后端自动检测拼音是否重复，如有重复要自动加上数字
+  originId: string; // 员工名字的拼音，后端自动检测拼音是否重复，如有重复要自动加上数字
   username: string; // 员工名字
   address: string;
-  socsec_id: string;
-  tax_rate: number;
-  other_cast: number;
+  socsecId: string;
+  taxRate: number;
+  otherCast: number;
   phone: string;
-  hour_wage?: number;
+  hourWage?: number;
   salary?: number;
-  commission_rate?: number;
-  duration_limit: number;
+  commissionRate?: number;
+  durationLimit: number;
 }
 
 interface CreateResponse extends CreateRequest {
@@ -92,9 +92,9 @@ interface GetResponse extends CreateRequest {
 interface UpdateRequest extends Partial<CreateRequest> { // Partial<T> 代表 T 上的任何 key 都是可选的
   id: string;
   payment?: 'mail' | 'receive' | 'bank';
-  mail_address?: string;
-  bank_name?: string;
-  bank_account?: string;
+  mailAddress?: string;
+  bankName?: string;
+  bankAccount?: string;
 }
 
 interface UpdateResponse {}
@@ -113,13 +113,13 @@ interface DeleteResponse {}
 interface CreateRequest {
   phone: string;
   address: string;
-  product_name: string;
+  productName: string;
   date: string;
 }
 
 interface CreateResponse {
   id: string;
-  employee_id: string;
+  employeeId: string;
 }
 
 // GET /purchase/get 
@@ -154,16 +154,16 @@ interface DeleteResponse {}
 // GET /timecard/get
 interface GetRequest {
   jwt: string;
-  page_index: number;
-  page_size: number;
+  pageIndex: number;
+  pageSize: number;
 }
 
 interface GetResponse {
   data: {
     id: string
-    is_save: boolean;
-    start_time: string;
-    end_time: string;
+    isSave: boolean;
+    startTime: string;
+    endTime: string;
     duration: number;
   }[];
 }

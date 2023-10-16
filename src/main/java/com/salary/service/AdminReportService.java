@@ -1,7 +1,9 @@
 package com.salary.service;
 
 import com.salary.dao.AdminReportMapper;
+import com.salary.dao.UserMapper;
 import com.salary.pojo.Timecard;
+import com.salary.pojo.User;
 import com.salary.reports.EmployeeDurationReport;
 import com.salary.reports.EmployeeSalaryReport;
 import com.salary.vo.AdminReportVO;
@@ -19,6 +21,9 @@ public class AdminReportService {
     @Autowired
     AdminReportMapper adminReportMapper;
 
+    @Autowired
+    UserMapper userMapper;
+
     public AdminReportVO<EmployeeDurationReport[]> createDuration(String startTime, String endTime, String employeeId) {
         //传入id为null，创建全部，否则指定
         if (employeeId == null){
@@ -32,6 +37,8 @@ public class AdminReportService {
             }
             //查询员工名字
             String name = adminReportMapper.selectName(employeeId);
+            if (name == null)
+                return AdminReportVO.error();
             //封装信息返回
             EmployeeDurationReport[] employeeDurationReports = new EmployeeDurationReport[1];
             EmployeeDurationReport employeeDurationReport = new EmployeeDurationReport(
@@ -46,10 +53,34 @@ public class AdminReportService {
 
     public AdminReportVO<EmployeeSalaryReport[]> createSalary(String startTime, String endTime, String employeeId) {
         //获取User
+        User user = userMapper.selectUserById(employeeId);
+        if (user == null) return AdminReportVO.error();
         //获取name
+        String name = user.getUsername();
         //根据员工类型计算salary
+        String type = user.getType();
         //时薪
-        //获取考勤卡，要注意是否可以加班以及加班工资计算
+        if (type.equals("salary")){
+            //获取考勤卡，要注意是否可以加班以及加班工资计算
+            List<Timecard> timecards = adminReportMapper.selectTimeCard(employeeId);
+            int sum = 0;
+            for(Timecard timecard : timecards){
+                int duration = timecard.getDuration();
+                int salary = user.getSalary();
+                if(duration <= 8){
+                    sum =  salary * duration;
+                }else{
+                    int limit = user.getDurationLimit();
+                    if (limit != 0){
+                        sum = salary * 8;
+                    }else{
+                        int cnt = duration - 8;
+//                        sum = 8 * salary + 1.5 * salary * cnt;
+                    }
+                }
+            }
+        }
+
         //受雇
         //固定工资直接获取salary
         //委托
