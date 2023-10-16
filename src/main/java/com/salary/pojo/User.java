@@ -19,7 +19,7 @@ public class User {
     private BigDecimal hourWage;
     private BigDecimal  salary;
     private BigDecimal  commissionRate;
-    private BigDecimal  durationLimit; // 0 代表可以加班
+    private Integer  durationLimit; // 0 代表可以加班
     private String type;    //'salary' | 'commission' | 'wage'
     private String payment;   //'mail' | 'receive' | 'bank'
     private String  mailAddress;
@@ -29,7 +29,7 @@ public class User {
     public User() {
     }
 
-    public User(String id, String username, String address, String socsecId, BigDecimal taxRate, BigDecimal otherCast, String phone, BigDecimal hourWage, BigDecimal salary, BigDecimal commissionRate, BigDecimal durationLimit, String type) {
+    public User(String id, String username, String address, String socsecId, BigDecimal taxRate, BigDecimal otherCast, String phone, BigDecimal hourWage, BigDecimal salary, BigDecimal commissionRate, Integer durationLimit, String type) {
         this.id = id;
         this.username = username;
         this.address = address;
