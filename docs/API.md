@@ -175,18 +175,11 @@ interface UpdateRequest {
   data: {
     id: string;
     projectName: string;
+    startTime: string;
+    endTime: string;
     duration: number;
   }[];
 }
 
 interface UpdateResponse {}
-
-// GET /timecard/project/get
-// 获取所有已经负责过的项目
-interface GetProjectRequest {
-  jwt: string;
-}
-interface GetProjectResponse {
-  projectNames: string[];
-}
 ```
