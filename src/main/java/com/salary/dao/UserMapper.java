@@ -9,4 +9,5 @@ import com.salary.pojo.User;
 public interface UserMapper {
     int insert(User user);
     User selectUserById(String id);
+
 }
