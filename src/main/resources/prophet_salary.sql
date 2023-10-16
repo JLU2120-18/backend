@@ -14,13 +14,13 @@ create table user(
     username varchar(32) comment '用户名',
     address varchar(256) comment '通讯地址',
     socsec_id varchar(32) comment '社保',
-    tax_rate int comment '税收',
-    other_cast int comment '其他扣除',
+    tax_rate decimal comment '税收',
+    other_cast decimal comment '其他扣除',
     phone varchar(11) comment '电话',
-    hour_wage int comment '时薪',
-    salary int comment '薪资',
-    commission_rate int comment '佣金率',
-    duration_limit int comment '工作时间限制',
+    hour_wage decimal(10, 2) comment '时薪',
+    salary decimal(10, 2) comment '薪资',
+    commission_rate decimal(10, 2) comment '佣金率',
+    duration_limit decimal(8, 2) comment '工作时间限制',
     type varchar(16) comment '员工类型: salary-工资制   commission-委托制    wage-时薪制',
     payment varchar(16) comment '支付类型: mail-邮寄    receive-领取    bank-银行',
     mail_address varchar(32) comment '邮箱地址',
@@ -43,6 +43,6 @@ create table time_card(
     is_save boolean comment '是否保存',
     start_time varchar(32) comment '开始时间',
     end_time varchar(32) comment '结束时间',
-    duration int comment '工作时长'
+    duration decimal(8, 2) comment '工作时长'
 );
 

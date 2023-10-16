@@ -12,5 +12,4 @@
     <select id="selectUserById" resultType="com.salary.pojo.User">
         select * from user where id = #{id};
     </select>
-
 </mapper>
