@@ -160,7 +160,8 @@ interface GetRequest {
 }
 
 interface GetResponse {
-  data: Timecard[];
+  total: number; // 用户所持有的考勤卡的总数
+  data: Timecard[]; // 用户所持有的考勤卡的分页数据
 }
 
 // GET /timecard/available
