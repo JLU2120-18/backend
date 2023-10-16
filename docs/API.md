@@ -76,7 +76,6 @@ interface CreateRequest {
 
 interface CreateResponse extends CreateRequest {
   id: string; // 新的 id，一般是员工拼音 + 数字：如果没有拼音就不用数字
-  jwt: string;
 }
 
 // GET /employee/get
