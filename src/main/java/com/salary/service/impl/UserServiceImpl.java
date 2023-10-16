@@ -4,6 +4,7 @@ import com.salary.dao.UserMapper;
 import com.salary.pojo.JWT;
 import com.salary.pojo.User;
 import com.salary.service.UserService;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
@@ -11,6 +12,7 @@ import javax.annotation.Resource;
  * @author Jialin
  * @create 2023-10-16 13:09
  */
+@Service
 public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
