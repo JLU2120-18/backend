@@ -46,7 +46,7 @@ interface Response {
 interface Request {
   type: 'duration' | 'proj_duration' | 'vacation' | 'salary';
   jwt: string;
-  projectName?: string;
+  timeCardId?: string;
   startTime: string;
   endTime: string;
 }
