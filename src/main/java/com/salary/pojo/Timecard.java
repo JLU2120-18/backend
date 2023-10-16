@@ -5,7 +5,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 /**
- * 描述：tt
+ * 描述：
  */
 @Data
 public class TimeCard {
