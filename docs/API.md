@@ -170,9 +170,12 @@ interface GetResponse {
 
 // POST /timecard/update
 interface UpdateRequest {
-  id: string;
   jwt: string;
-  duration: number;
+  data: {
+    id: string;
+    projectName: string;
+    duration: number;
+  }[];
 }
 
 interface UpdateResponse {}
