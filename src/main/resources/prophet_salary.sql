@@ -32,6 +32,7 @@ create table purchase_order(
     id varchar(32) primary key,
     employee_id varchar(32) comment '员工id',
     product_name varchar(32) comment '产品名称',
+    pay decimal(10, 2) comment '支付金额',
     phone varchar(11) comment '电话',
     address varchar(256) comment '地址',
     date varchar(32) comment '日期'
