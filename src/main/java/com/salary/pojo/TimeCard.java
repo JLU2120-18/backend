@@ -11,6 +11,7 @@ import java.math.BigDecimal;
 public class TimeCard {
     private String id;
     private String employeeId;
+    private String projectName;
     private String isSave;
     private String startTime;
     private String endTime;
@@ -19,9 +20,10 @@ public class TimeCard {
     public TimeCard() {
     }
 
-    public TimeCard(String id, String employeeId, String isSave, String startTime, String endTime, BigDecimal duration) {
+    public TimeCard(String id, String employeeId,String projectName, String isSave, String startTime, String endTime, BigDecimal duration) {
         this.id = id;
         this.employeeId = employeeId;
+        this.projectName = projectName;
         this.isSave = isSave;
         this.startTime = startTime;
         this.endTime = endTime;
