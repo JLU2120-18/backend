@@ -3,7 +3,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.salary.dao.UserMapper">
-
     <insert id="insert">
         insert into user(type, id, username, address, socsec_id, tax_rate, other_cast, phone, hour_wage, salary, commission_rate, duration_limit)
         values (#{type}, #{id}, #{username}, #{address}, #{socsecId}, #{taxRate}, #{otherCast}, #{phone}, #{hourWage}, #{salary}, #{commissionRate}, #{durationLimit});
@@ -11,5 +10,10 @@
 
     <select id="selectUserById" resultType="com.salary.pojo.User">
         select * from user where id = #{id};
+    </select>
+    <select id="selectName" resultType="string">
+        select username
+        from user
+        where id = #{employeeId};
     </select>
 </mapper>

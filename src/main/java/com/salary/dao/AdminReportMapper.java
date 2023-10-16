@@ -13,5 +13,4 @@ import java.util.List;
 public interface AdminReportMapper {
     List<TimeCard> selectTimeCard(String employeeId);
 
-    String selectName(String employeeId);
 }

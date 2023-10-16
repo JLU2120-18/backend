@@ -44,7 +44,8 @@ public class AdminReportService {
                 duration = duration.add(timecard.getDuration());
             }
             //查询员工名字
-            String name = adminReportMapper.selectName(employeeId);
+            String name = userMapper.selectName(employeeId);
+            System.out.println(name);
             if (name == null)
 //                return AdminReportVO.error();
                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
@@ -82,7 +83,7 @@ public class AdminReportService {
                 for (TimeCard timecard : timecards) {
                     BigDecimal x = new BigDecimal(8);
                     BigDecimal duration = timecard.getDuration();
-                    BigDecimal hourWage = user.getSalary();
+                    BigDecimal hourWage = user.getHourWage();
                     if (duration.compareTo(x) < 0) {
                         sum = hourWage.multiply(duration).multiply(taxRate).subtract(cast);
                     } else {

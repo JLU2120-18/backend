@@ -3,14 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.salary.dao.AdminReportMapper">
-    <resultMap id="BaseResultMap" type="com.salary.pojo.TimeCard">
-        <id column="id" jdbcType="VARCHAR" property="id" />
-        <result column="employee_id" jdbcType="VARCHAR" property="employeeId" />
-        <result column="is_save" jdbcType="BOOLEAN" property="isSave" />
-        <result column="start_time" jdbcType="VARCHAR" property="startTime" />
-        <result column="end_time" jdbcType="VARCHAR" property="endTime" />
-        <result column="duration" jdbcType="DECIMAL" property="duration" />
-    </resultMap>
+<!--    <resultMap id="BaseResultMap" type="com.salary.pojo.TimeCard">-->
+<!--        <id column="id" jdbcType="VARCHAR" property="id" />-->
+<!--        <result column="employee_id" jdbcType="VARCHAR" property="employeeId" />-->
+<!--        <result column="is_save" jdbcType="BOOLEAN" property="isSave" />-->
+<!--        <result column="start_time" jdbcType="VARCHAR" property="startTime" />-->
+<!--        <result column="end_time" jdbcType="VARCHAR" property="endTime" />-->
+<!--        <result column="duration" jdbcType="DECIMAL" property="duration" />-->
+<!--    </resultMap>-->
     <sql id="Base_Column_List">
         id, employee_id, is_save, start_time, end_time, duration
     </sql>
@@ -19,9 +19,5 @@
             <include refid="Base_Column_List"/>
         from time_card where employee_id = #{employeeId} order by start_time;
     </select>
-    <select id="selectName" resultMap="BaseResultMap">
-        select username
-        from user
-        where id = #{employeeId};
-    </select>
+
 </mapper>

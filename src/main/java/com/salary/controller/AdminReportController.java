@@ -33,7 +33,6 @@ public class AdminReportController {
             return adminReportService.createSalary(startTime,endTime,employeeId);
         }else{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-
         }
     }
 
