@@ -45,7 +45,8 @@ interface Response {
 // POST /employee_report/create
 interface Request {
   type: 'duration' | 'proj_duration' | 'vacation' | 'salary';
-  project_name: string;
+  jwt: string;
+  project_name?: string;
   start_time: string;
   end_time: string;
 }
