@@ -32,7 +32,7 @@ interface Request {
   type: 'duration' | 'salary';
   start_time: string;
   end_time: string;
-  employee_name: string;
+  employee_id: string;
 }
 
 interface Response {
