@@ -1,6 +1,6 @@
 package com.salary.dao;
 
-import com.salary.pojo.TimeCard;
+import com.salary.pojo.Timecard;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Mapper
 public interface AdminReportMapper {
-    List<TimeCard> selectTimeCard(String employeeId);
+    List<Timecard> selectTimeCard(String employeeId);
 
     String selectName(String employeeId);
 }
