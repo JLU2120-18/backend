@@ -39,6 +39,7 @@ create table purchase_order(
 
 create table time_card(
     id varchar(32) primary key,
+    employee_id varchar(32) comment '员工id',
     is_save boolean comment '是否保存',
     start_time varchar(32) comment '开始时间',
     end_time varchar(32) comment '结束时间',
