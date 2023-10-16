@@ -1,0 +1,15 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.salary.dao.UserMapper">
+
+    <insert id="insert">
+        insert into user(type, id, username, address, socsec_id, tax_rate, other_cast, phone, hour_wage, salary, commission_rate, duration_limit)
+        values (#{type}, #{id}, #{username}, #{address}, #{socsecId}, #{taxRate}, #{otherCast}, #{phone}, #{hourWage}, #{salary}, #{commissionRate}, #{durationLimit});
+    </insert>
+
+    <select id="selectUserById" resultType="com.salary.pojo.User">
+        select * from user where id = #{id};
+    </select>
+</mapper>
