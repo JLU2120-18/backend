@@ -115,6 +115,7 @@ interface CreateRequest {
   address: string;
   productName: string;
   date: string;
+  pay: decimal;
 }
 
 interface CreateResponse {
