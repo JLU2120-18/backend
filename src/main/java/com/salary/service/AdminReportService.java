@@ -45,6 +45,16 @@ public class AdminReportService {
 
 
     public AdminReportVO<EmployeeSalaryReport[]> createSalary(String startTime, String endTime, String employeeId) {
+        //获取User
+        //获取name
+        //根据员工类型计算salary
+        //时薪
+        //获取考勤卡，要注意是否可以加班以及加班工资计算
+        //受雇
+        //固定工资直接获取salary
+        //委托
+        //获取固定工资
+        //计算佣金
         return AdminReportVO.error();
     }
 }
