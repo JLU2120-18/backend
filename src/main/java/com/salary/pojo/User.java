@@ -1,6 +1,8 @@
 package com.salary.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -8,6 +10,8 @@ import java.math.BigDecimal;
  * 描述：
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     private String id;
     private String username;
@@ -26,29 +30,4 @@ public class User {
     private String  bankName;
     private String bankAccount;
 
-    public User() {
-    }
-
-    public User(String id, String username, String address, String socsecId, BigDecimal taxRate, BigDecimal otherCast, String phone, BigDecimal hourWage, BigDecimal salary, BigDecimal commissionRate, Integer durationLimit, String type) {
-        this.id = id;
-        this.username = username;
-        this.address = address;
-        this.socsecId = socsecId;
-        this.taxRate = taxRate;
-        this.otherCast = otherCast;
-        this.phone = phone;
-        this.hourWage = hourWage;
-        this.salary = salary;
-        this.commissionRate = commissionRate;
-        this.durationLimit = durationLimit;
-        this.type = type;
-    }
-
-    public User(String id, String payment, String mailAddress, String bankName, String bankAccount) {
-        this.id = id;
-        this.payment = payment;
-        this.mailAddress = mailAddress;
-        this.bankName = bankName;
-        this.bankAccount = bankAccount;
-    }
 }
