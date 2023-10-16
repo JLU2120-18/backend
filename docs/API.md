@@ -162,6 +162,7 @@ interface GetResponse {
   data: {
     id: string
     isSave: boolean;
+    projectName: string;
     startTime: string;
     endTime: string;
     duration: number;
@@ -179,4 +180,13 @@ interface UpdateRequest {
 }
 
 interface UpdateResponse {}
+
+// GET /timecard/project/get
+// 获取所有已经负责过的项目
+interface GetProjectRequest {
+  jwt: string;
+}
+interface GetProjectResponse {
+  projectNames: string[];
+}
 ```
