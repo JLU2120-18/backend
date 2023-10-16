@@ -69,7 +69,7 @@ interface CreateRequest {
   otherCast: number;
   phone: string;
   hourWage?: number;
-  salary?: number;
+  salary?: decimal;
   commissionRate?: number;
   durationLimit: number;
 }
