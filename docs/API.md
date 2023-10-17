@@ -92,6 +92,7 @@ interface GetResponse extends CreateRequest {
 // GET /employee/gets
 interface GetsRequest {
   jwt: string;
+  id?: string;
   pageIndex: number;
   pageSize: number;
 }
