@@ -2,7 +2,9 @@ package com.salary.controller;
 
 import com.salary.form.AdminReportForm;
 import com.salary.service.AdminReportService;
+import com.salary.utils.JwtUtils;
 import com.salary.vo.AdminReportVO;
+import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +24,11 @@ public class AdminReportController {
     AdminReportService adminReportService;
     @PostMapping("/create")
     public AdminReportVO create(@RequestBody AdminReportForm form){
+        String jwt = form.getJwt();
+        Claims claims = JwtUtils.parseToken(jwt);
+        if (!claims.get("role").toString().equals("payroll")){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
         String type = form.getType();
         String startTime = form.getStartTime();
         String endTime = form.getEndTime();

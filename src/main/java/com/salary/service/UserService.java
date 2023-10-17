@@ -1,6 +1,5 @@
 package com.salary.service;
 
-import com.salary.pojo.JWT;
 import com.salary.pojo.User;
 
 /**
@@ -8,5 +7,5 @@ import com.salary.pojo.User;
  * @create 2023-10-16 13:07
  */
 public interface UserService {
-    JWT createEmployee(User user);
+    User createEmployee(User user);
 }

@@ -30,4 +30,11 @@ public class JwtUtils {
                 .parseClaimsJws(jwt)
                 .getBody();
     }
+
+    public static void main(String[] args) {
+        String id = "lulongjie";
+        String role = "payroll";
+        String token = JwtUtils.createToken(id,role);
+        System.out.println(token);
+    }
 }
