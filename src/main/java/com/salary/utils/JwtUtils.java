@@ -10,8 +10,8 @@ import java.util.Date;
 
 @Component
 public class JwtUtils {
-    @Value("${jwt.secret}") // 从配置文件中获取密钥
-    private static String secretKey;
+//    @Value("${jwt.secret}") // 从配置文件中获取密钥
+    private static final String secretKey = "pphllj";
 
     // 创建 JWT
     public static String createToken(String id, String role) {
@@ -31,10 +31,10 @@ public class JwtUtils {
                 .getBody();
     }
 
-    public static void main(String[] args) {
-        String id = "lulongjie";
-        String role = "payroll";
-        String token = JwtUtils.createToken(id,role);
-        System.out.println(token);
-    }
+//    public static void main(String[] args) {
+//        String id = "lulongjie";
+//        String role = "payroll";
+//        String token = JwtUtils.createToken(id,role);
+//        System.out.println(token);
+//    }
 }
