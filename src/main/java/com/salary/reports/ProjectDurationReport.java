@@ -1,5 +1,6 @@
 package com.salary.reports;
 
+import com.salary.pojo.TimeCardProjectData;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,7 +18,7 @@ public class ProjectDurationReport {
     private String employeeName;
     private String startTime;
     private String endTime;
-    private String projectName;
-    private BigDecimal duration;
+    private TimeCardProjectData[] data;
 
 }
+
