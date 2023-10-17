@@ -99,10 +99,7 @@ interface GetsRequest {
 
 interface GetsResponse {
   total: number;
-  data: {
-    id: string;
-    username: string;
-  }[];
+  data: CreateRequest[];
 }
 
 // GET /employee/sug
