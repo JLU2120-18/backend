@@ -129,6 +129,7 @@ interface GetsRequest {
   jwt: string;
   pageIndex: number;
   pageSize: number;
+  id?: string; // 获取以 id 为前缀的所有 purchaseOrder
 }
 
 interface GetsResponse {
