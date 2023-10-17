@@ -129,7 +129,7 @@ interface GetsRequest {
   jwt: string;
   pageIndex: number;
   pageSize: number;
-  id?: string; // 获取以 id 为前缀的所有 purchaseOrder
+  id?: string; // 获取以 id 为前缀的所有 purchaseOrder，此时获取到的 total 是数据库中匹配到的所有结果数量
 }
 
 interface GetsResponse {
