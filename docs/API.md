@@ -89,6 +89,16 @@ interface GetResponse extends CreateRequest {
   payment: 'mail' | 'receive' | 'bank';
 }
 
+// GET /employee/sug
+interface GetSugRequest {
+  id: string;
+}
+
+// 获取所有以 id 为开头的 employee_id
+interface GetSugResponse {
+  data: string[];
+}
+
 // POST /employee/update
 interface UpdateRequest extends Partial<CreateRequest> { // Partial<T> 代表 T 上的任何 key 都是可选的
   id: string;
