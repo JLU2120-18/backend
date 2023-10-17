@@ -89,6 +89,21 @@ interface GetResponse extends CreateRequest {
   payment: 'mail' | 'receive' | 'bank';
 }
 
+// GET /employee/gets
+interface GetsRequest {
+  jwt: string;
+  pageIndex: number;
+  pageSize: number;
+}
+
+interface GetsResponse {
+  total: number;
+  data: {
+    id: string;
+    username: string;
+  }[];
+}
+
 // GET /employee/sug
 interface GetSugRequest {
   id: string;
