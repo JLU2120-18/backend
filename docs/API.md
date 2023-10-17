@@ -111,6 +111,7 @@ interface DeleteResponse {}
 ```typescript
 // POST /purchase/create
 interface CreateRequest {
+  jwt: string;
   phone: string;
   address: string;
   productName: string;
@@ -120,7 +121,18 @@ interface CreateRequest {
 
 interface CreateResponse {
   id: string;
-  employeeId: string;
+}
+
+// GET /purchase/gets 
+interface GetsRequest {
+  jwt: string;
+  pageIndex: number;
+  pageSize: number;
+}
+
+interface GetsResponse {
+  total: number; // 属于请求用户的所有采购订单的总数
+  data: PurchaseOrder[]
 }
 
 // GET /purchase/get 
