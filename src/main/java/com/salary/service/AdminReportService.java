@@ -2,7 +2,7 @@ package com.salary.service;
 
 import com.salary.dao.AdminReportMapper;
 import com.salary.dao.UserMapper;
-import com.salary.pojo.Timecard;
+import com.salary.pojo.TimeCard;
 import com.salary.pojo.User;
 import com.salary.reports.EmployeeDurationReport;
 import com.salary.reports.EmployeeSalaryReport;
@@ -30,10 +30,10 @@ public class AdminReportService {
             return AdminReportVO.error();
         }else{
             //查询考勤卡，计算总时长
-            List<Timecard> timecards = adminReportMapper.selectTimeCard(employeeId);
+            List<TimeCard> timecards = adminReportMapper.selectTimeCard(employeeId);
             int duration = 0;
-            for(Timecard timecard : timecards){
-                duration += timecard.getDuration();
+            for(TimeCard timecard : timecards){
+//                duration += timecard.getDuration();
             }
             //查询员工名字
             String name = adminReportMapper.selectName(employeeId);
