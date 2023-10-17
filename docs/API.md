@@ -46,7 +46,7 @@ interface Response {
 interface Request {
   type: 'duration' | 'proj_duration' | 'vacation' | 'salary';
   jwt: string;
-  projectName?: string;
+  timeCardId?: string;
   startTime: string;
   endTime: string;
 }
@@ -111,6 +111,7 @@ interface DeleteResponse {}
 ```typescript
 // POST /purchase/create
 interface CreateRequest {
+  jwt: string;
   phone: string;
   address: string;
   productName: string;
@@ -120,7 +121,18 @@ interface CreateRequest {
 
 interface CreateResponse {
   id: string;
-  employeeId: string;
+}
+
+// GET /purchase/gets 
+interface GetsRequest {
+  jwt: string;
+  pageIndex: number;
+  pageSize: number;
+}
+
+interface GetsResponse {
+  total: number; // 属于请求用户的所有采购订单的总数
+  data: PurchaseOrder[]
 }
 
 // GET /purchase/get 
@@ -160,7 +172,8 @@ interface GetRequest {
 }
 
 interface GetResponse {
-  data: Timecard[];
+  total: number; // 用户所持有的考勤卡的总数
+  data: Timecard[]; // 用户所持有的考勤卡的分页数据
 }
 
 // GET /timecard/available
@@ -176,11 +189,9 @@ interface GetAvailableRequest {
 // POST /timecard/update
 interface UpdateRequest {
   jwt: string;
+  id: string;
   data: {
-    id: string;
     projectName: string;
-    startTime: string;
-    endTime: string;
     duration: number;
   }[];
 }
