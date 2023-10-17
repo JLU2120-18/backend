@@ -42,9 +42,15 @@ create table time_card(
     id varchar(32) primary key,
     employee_id varchar(32) comment '员工id',
     project_name varchar(32) comment '项目名称',
+    duration decimal(8, 2) comment '工作时长',
     is_save boolean comment '是否保存',
     start_time varchar(32) comment '开始时间',
-    end_time varchar(32) comment '结束时间',
+    end_time varchar(32) comment '结束时间'
+);
+
+create table time_card_project(
+    id varchar(32) primary key,
+    project_name varchar(32) comment '项目名称',
     duration decimal(8, 2) comment '工作时长'
 );
 
