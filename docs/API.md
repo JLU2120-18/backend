@@ -30,6 +30,7 @@ interface Response {
 // POST /admin_report/create
 interface Request {
   type: 'duration' | 'salary';
+  jwt: string;
   startTime: string;
   endTime: string;
   employeeId: string;
