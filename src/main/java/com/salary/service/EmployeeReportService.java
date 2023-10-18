@@ -42,10 +42,10 @@ public class EmployeeReportService {
     * */
     public ReportVO<DurationReport[]> createDuration(String startTime, String endTime, String employeeId) {
         //传入id为null，创建全部，否则指定
-        if (employeeId == null){
-//            return AdminReportVO.error();
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }else{
+//        if (employeeId == null){
+////            return AdminReportVO.error();
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//        }else{
             //查询考勤卡，计算总时长
             List<TimeCard> timecards = timeCardMapper.selectTimeCardsById(employeeId,startTime,endTime);
             BigDecimal duration = new BigDecimal(0);
@@ -54,18 +54,15 @@ public class EmployeeReportService {
             }
             //查询员工名字
             String employeeName = userMapper.selectNameById(employeeId);
-//            System.out.println(name);
             if (employeeName == null)
-//                return AdminReportVO.error();
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             //封装信息返回
             DurationReport durationReport = new DurationReport(
                     employeeId,employeeName,startTime,endTime,duration
             );
             DurationReport[] durationReports = {durationReport};
-//            employeeDurationReports[0] = employeeDurationReport;
             return ReportVO.success(durationReports);
-        }
+//        }
     }
 
 
@@ -102,13 +99,24 @@ public class EmployeeReportService {
     /*
     * 创建假期/病假报告
     * */
-    public ReportVO<VacationReport> createVacation(String startTime, String endTime, String employeeId){
+    public ReportVO<VacationReport[]> createVacation(String startTime, String endTime, String employeeId){
         //根据用户id查询考勤卡
         List<TimeCard> timeCards =timeCardMapper.selectTimeCardsById(employeeId,startTime,endTime);
-        //计算天数
+        //计算请假天数
         int days = DateUtils.getDays(timeCards);
-        //
-        return  null;
+        if (days < 0){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+        //根据id查找用户名
+        String employeeName = userMapper.selectNameById(employeeId);
+        if (employeeName == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        //封装信息
+        VacationReport vacationReport = new VacationReport(
+                employeeId,employeeName,startTime,endTime,days
+        );
+        VacationReport[] vacationReports = {vacationReport};
+        return  ReportVO.success(vacationReports);
     }
 
 

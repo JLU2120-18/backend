@@ -40,10 +40,10 @@ public class AdminReportService {
     * */
     public ReportVO<EmployeeDurationReport[]> createDuration(String startTime, String endTime, String employeeId) {
         //传入id为null，创建全部，否则指定
-        if (employeeId == null){
-//            return AdminReportVO.error();
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }else{
+//        if (employeeId == null){
+////            return AdminReportVO.error();
+//            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+//        }else{
             //查询时间内考勤卡，计算总时长
             List<TimeCard> timecards = timeCardMapper.selectTimeCardsById(employeeId,startTime,endTime);
             BigDecimal duration = new BigDecimal(0);
@@ -52,18 +52,15 @@ public class AdminReportService {
             }
             //查询员工名字
             String name = userMapper.selectNameById(employeeId);
-            System.out.println(name);
             if (name == null)
-//                return AdminReportVO.error();
                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             //封装信息返回
             EmployeeDurationReport employeeDurationReport = new EmployeeDurationReport(
                 employeeId,name,startTime,endTime,duration
             );
             EmployeeDurationReport[] employeeDurationReports = {employeeDurationReport};
-//            employeeDurationReports[0] = employeeDurationReport;
             return ReportVO.success(employeeDurationReports);
-        }
+//        }
     }
 
 
@@ -88,12 +85,14 @@ public class AdminReportService {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
+        //当前日期
         String d = sdf.format(date);
         BigDecimal months = BigDecimal.valueOf(DateUtils.getMonths(d));
 
         //时薪
         switch (type) {
             case "wage":
+                //年初日期
                 String start = DateUtils.getYearInit(d);
                 //获取考勤卡，要注意是否可以加班以及加班工资计算
                 List<TimeCard> timecards = timeCardMapper.selectTimeCardsById(employeeId,start,d);

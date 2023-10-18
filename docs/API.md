@@ -62,7 +62,7 @@ interface Response {
 // POST /employee/create
 interface CreateRequest {
   type: 'salary' | 'commission' | 'wage'; // 月薪 ｜ 佣金 ｜ 时薪
-  originId: string; // 员工名字的拼音，后端自动检测拼音是否重复，如有重复要自动加上数字
+  id: string; // 员工名字的拼音，后端自动检测拼音是否重复，如有重复要自动加上数字
   username: string; // 员工名字
   address: string;
   socsecId: string;

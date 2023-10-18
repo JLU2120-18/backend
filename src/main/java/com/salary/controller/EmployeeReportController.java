@@ -17,7 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
  * 描述：
  */
 @RestController
-@RequestMapping("/employee_report")
+@RequestMapping("/api/employee_report")
 public class EmployeeReportController {
 
     @Autowired
@@ -28,7 +28,6 @@ public class EmployeeReportController {
         String jwt = form.getJwt();
         Claims claims = JwtUtils.parseToken(jwt);
         String role = claims.get("role").toString();
-
         if (!role.equals("employee") && !role.equals("commission")){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -36,6 +35,8 @@ public class EmployeeReportController {
         String type = form.getType();
         String startTime = form.getStartTime();
         String endTime = form.getEndTime();
+        if (Integer.parseInt(endTime) - Integer.parseInt(startTime) < 0 || employeeId == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         switch (type) {
             case "duration":
                 return employeeReportService.createDuration(startTime, endTime, employeeId);

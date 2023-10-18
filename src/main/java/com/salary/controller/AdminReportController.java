@@ -17,7 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
  * 描述：薪资管理员controller层
  */
 @RestController
-@RequestMapping("/admin_report")
+@RequestMapping("/api/admin_report")
 public class AdminReportController {
 
     @Autowired
@@ -29,14 +29,15 @@ public class AdminReportController {
         if (!claims.get("role").toString().equals("payroll")){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
+        String employeeId = claims.get("id").toString();
         String type = form.getType();
         String startTime = form.getStartTime();
         String endTime = form.getEndTime();
-        String employeeId = form.getEmployeeId();
+        if (Integer.parseInt(endTime) - Integer.parseInt(startTime) < 0 || employeeId == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         if (type.equals("duration")){
             return adminReportService.createDuration(startTime,endTime,employeeId);
         }else if(type.equals("salary")){
-//            return AdminReportVO.error();
             return adminReportService.createSalary(startTime,endTime,employeeId);
         }else{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);

@@ -15,5 +15,5 @@ public class VacationReport {
     private String employeeName;
     private String startTime;
     private String endTime;
-
+    private Integer days;
 }
