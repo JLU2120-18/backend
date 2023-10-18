@@ -1,11 +1,15 @@
 package com.salary.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 描述：
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class PurchaseOrder {
     private String id;
     private String employeeId;
@@ -13,15 +17,4 @@ public class PurchaseOrder {
     private String phone;
     private String address;
     private String date;
-
-    public PurchaseOrder() {
-    }
-
-    public PurchaseOrder(String employeeId, String productName, String phone, String address, String date) {
-        this.employeeId = employeeId;
-        this.productName = productName;
-        this.phone = phone;
-        this.address = address;
-        this.date = date;
-    }
 }

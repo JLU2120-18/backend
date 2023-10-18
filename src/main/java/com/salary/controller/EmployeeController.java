@@ -1,9 +1,7 @@
 package com.salary.controller;
 
-import com.salary.pojo.JWT;
 import com.salary.pojo.User;
 import com.salary.service.UserService;
-import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +14,7 @@ import javax.annotation.Resource;
 
 @Slf4j
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/api/employee")
 public class EmployeeController {
     @Resource
     private UserService userService;
@@ -31,8 +29,32 @@ public class EmployeeController {
         return userService.createEmployee(user);
     }
 
+    /**
+     * 获取员工信息
+     * @param id
+     * @param jwt
+     * @return
+     */
     @GetMapping("/get")
-    public User get(@RequestParam String jwt) {
-        return null;
+    public User get(@RequestParam String id, @RequestParam String jwt) {
+        return userService.getEmployee(id, jwt);
+    }
+
+    /**
+     * 更新员工信息
+     * @param user
+     */
+    @PostMapping("/update")
+    public void update(@RequestBody User user) {
+        userService.updateEmployee(user);
+    }
+
+    /**
+     * 删除员工
+     * @param user
+     */
+    @PostMapping("/delete")
+    public void delete(@RequestBody User user) {
+        userService.deleteEmployee(user);
     }
 }

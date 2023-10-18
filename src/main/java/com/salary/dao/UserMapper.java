@@ -11,5 +11,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
     int insert(User user);
     User selectUserById(String id);
-
+    String selectNameById(String employeeId);
+    int deleteUserById(String id);
+    int updateUserById(User user);
 }

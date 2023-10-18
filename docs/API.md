@@ -81,6 +81,7 @@ interface CreateResponse extends CreateRequest {
 
 // GET /employee/get
 interface GetRequest {
+  id: string;
   jwt: string;
 }
 
