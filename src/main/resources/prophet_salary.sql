@@ -95,19 +95,19 @@ create table purchase_order
 );
 
 INSERT INTO `prophet_salary`.`purchase_order` (`id`, `employee_id`, `product_name`, `pay`, `phone`, `address`, `date`)
-VALUES ('1', 'aotuo1', '槟榔', '800', '13336336666', '辽宁省鞍山市', '2023/10/16');
+VALUES ('1', 'aotuo1', '槟榔', '800', '13336336666', '辽宁省鞍山市', '2023-04-07 13:21:55');
 INSERT INTO `prophet_salary`.`purchase_order` (`id`, `employee_id`, `product_name`, `pay`, `phone`, `address`, `date`)
-VALUES ('2', 'dingzhen2', '服装', '1800', '14639566685', '四川省理塘市', '2023/10/17');
+VALUES ('2', 'dingzhen2', '服装', '1800', '14639566685', '四川省理塘市', '2023-04-07 15:21:55');
 INSERT INTO `prophet_salary`.`purchase_order` (`id`, `employee_id`, `product_name`, `pay`, `phone`, `address`, `date`)
-VALUES ('3', 'daoge3', '打火机', '310', '15966584895', '辽宁省沈阳市', '2023/10/18');
+VALUES ('3', 'daoge3', '打火机', '310', '15966584895', '辽宁省沈阳市', '2023-04-13 12:23:55');
 INSERT INTO `prophet_salary`.`purchase_order` (`id`, `employee_id`, `product_name`, `pay`, `phone`, `address`, `date`)
-VALUES ('4', 'boerbute6', '猫头鹰', '6000', '17264828084', '四川省成都市', '2023/10/19');
+VALUES ('4', 'boerbute6', '猫头鹰', '6000', '17264828084', '四川省成都市', '2023-04-12 10:21:55');
 INSERT INTO `prophet_salary`.`purchase_order` (`id`, `employee_id`, `product_name`, `pay`, `phone`, `address`, `date`)
-VALUES ('5', 'diangun5', '口罩', '1000', '19280806523', '浙江省宁波市', '2023/10/16');
+VALUES ('5', 'diangun5', '口罩', '1000', '19280806523', '浙江省宁波市', '2023-04-12 10:52:55');
 INSERT INTO `prophet_salary`.`purchase_order` (`id`, `employee_id`, `product_name`, `pay`, `phone`, `address`, `date`)
-VALUES ('6', 'manguanzhi4', '96-A', '6000000', '17264828084', '山东省青岛市', '2023/10/16');
+VALUES ('6', 'manguanzhi4', '96-A', '6000.1', '17264828084', '山东省青岛市', '2023-04-10 10:37:40');
 INSERT INTO `prophet_salary`.`purchase_order` (`id`, `employee_id`, `product_name`, `pay`, `phone`, `address`, `date`)
-VALUES ('7', 'shoushangqiangou7', '狗', '2000', '17756589942', '河北省石家庄市', '2023/10/16');
+VALUES ('7', 'shoushangqiangou7', '狗', '2000', '17756589942', '河北省石家庄市', '2023-04-12 9:21:55');
 
 create table time_card
 (
@@ -119,24 +119,24 @@ create table time_card
     end_time    varchar(32) comment '结束时间'
 );
 
-INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `is_save`, `start_time`, `end_time`)
-VALUES ('1', 'aotuo1', '1', '2023/10/7', '2023/10/11');
-INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `is_save`, `start_time`, `end_time`)
-VALUES ('2', 'dingzhen2', '0', '2023/10/8', '2023/10/13');
-INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `is_save`, `start_time`, `end_time`)
-VALUES ('3', 'daoge3', '0', '2023/10/8', '2023/10/13');
-INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `is_save`, `start_time`, `end_time`)
-VALUES ('4', 'boerbute6', '1', '2023/10/8', '2023/10/13');
-INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `is_save`, `start_time`, `end_time`)
-VALUES ('5', 'diangun5', '1', '2023/10/8', '2023/10/13');
-INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `is_save`, `start_time`, `end_time`)
-VALUES ('6', 'manguanzhi4', '1', '2023/10/8', '2023/10/13');
-INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `is_save`, `start_time`, `end_time`)
-VALUES ('7', 'shoushangqiangou7', '1', '2023/10/8', '2023/10/13');
-INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `is_save`, `start_time`, `end_time`)
-VALUES ('8', 'aotuo1', '0', '2023/10/7', '2023/10/12');
-INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `is_save`, `start_time`, `end_time`)
-VALUES ('9', 'dingzhen2', '0', '2023/10/8', '2023/10/13');
+INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `duration`, `is_save`, `start_time`, `end_time`)
+VALUES ('1', 'aotuo1', '10', '1', '2023-04-07 10:21:55', '2023-04-08 10:21:55');
+INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `duration`, `is_save`, `start_time`, `end_time`)
+VALUES ('2', 'dingzhen2','20', '0', '2023-04-07 10:21:55', '2023-04-08 10:21:55');
+INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `duration`, `is_save`, `start_time`, `end_time`)
+VALUES ('3', 'daoge3', '30', '0', '2023-04-12 16:21:55', '2023-04-13 11:21:55');
+INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `duration`, `is_save`, `start_time`, `end_time`)
+VALUES ('4', 'boerbute6', '25.5', '1', '2023-04-12 14:21:55', '2023-04-14 17:21:55');
+INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `duration`, `is_save`, `start_time`, `end_time`)
+VALUES ('5', 'diangun5', '60', '1', '2023-04-12 10:21:55', '2023-04-17 10:21:50');
+INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `duration`, `is_save`, `start_time`, `end_time`)
+VALUES ('6', 'manguanzhi4', '15.6', '1', '2023-04-11 09:21:55', '2023-04-14 10:21:55');
+INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `duration`, `is_save`, `start_time`, `end_time`)
+VALUES ('7', 'shoushangqiangou7', '10', '1', '2023-04-12 13:41:55', '2023-04-14 10:57:55');
+INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `duration`, `is_save`, `start_time`, `end_time`)
+VALUES ('8', 'aotuo1', '40', '0', '2023-04-09 13:41:55', '2023-04-11 10:57:55');
+INSERT INTO `prophet_salary`.`time_card` (`id`, `employee_id`, `duration`, `is_save`, `start_time`, `end_time`)
+VALUES ('9', 'dingzhen2', '35', '0', '2023-04-12 17:41:55', '2023-04-14 10:55:15');
 
 create table time_card_project
 (

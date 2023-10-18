@@ -1,6 +1,8 @@
 package com.salary.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -10,17 +12,10 @@ import java.math.BigDecimal;
  */
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class TimeCardProject {
     private String id;
     private String projectName;
     private BigDecimal duration;
-
-    public TimeCardProject() {
-    }
-
-    public TimeCardProject(String id, String projectName, BigDecimal duration) {
-        this.id = id;
-        this.projectName = projectName;
-        this.duration = duration;
-    }
 }

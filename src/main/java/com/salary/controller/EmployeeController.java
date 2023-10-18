@@ -1,9 +1,7 @@
 package com.salary.controller;
 
-import com.salary.pojo.JWT;
 import com.salary.pojo.User;
 import com.salary.service.UserService;
-import io.jsonwebtoken.Jwts;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 

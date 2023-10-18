@@ -8,6 +8,9 @@
         insert into auth (id, username, password, role)
         values (#{id}, #{username}, #{password}, #{role})
     </insert>
+    <delete id="deleteAuthById">
+        delete from auth where id = #{id}
+    </delete>
 
     <select id="selectRoleById" resultType="java.lang.String">
         select role from auth where id = #{id}

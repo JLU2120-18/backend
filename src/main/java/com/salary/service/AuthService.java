@@ -3,6 +3,7 @@ package com.salary.service;
 import com.salary.dto.AuthDTO;
 import com.salary.dto.UserDTO;
 import com.salary.pojo.Auth;
+import com.salary.pojo.User;
 
 /**
  * @author Jialin

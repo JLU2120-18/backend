@@ -40,13 +40,13 @@ public class AuthServiceImpl implements AuthService {
         Boolean remember = authDTO.getRemember();
 
         // 2.后端加强验证, 防止输入为空
-        if(id == null || "".equals(id) || password == null || "".equals(password)) {
+        if(id == null || id.length() > 0 || password == null || password.length() > 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
-        // 3.根据id查询auth, 判断用户名密码是否输入正确
+        // 3.根据id查询auth, 判断密码是否正确
         Auth selectedAuth = authMapper.selectAuthById(id);
-        if(selectedAuth == null || !selectedAuth.getUsername().equals(authDTO.getUsername()) || !selectedAuth.getPassword().equals(password)) {
+        if(selectedAuth == null || !selectedAuth.getPassword().equals(password)) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 

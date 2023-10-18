@@ -1,4 +1,4 @@
-package com.salary.reports;
+package com.salary.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,10 +12,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeDurationReport{
-    private String employeeId;
-    private String employeeName;
-    private String startTime;
-    private String endTime;
+public class TimeCardProjectData {
+    private String projectName;
     private BigDecimal duration;
 }

@@ -1,6 +1,5 @@
 package com.salary.service;
 
-import com.salary.pojo.JWT;
 import com.salary.pojo.User;
 
 /**

@@ -9,11 +9,70 @@
         values (#{type}, #{id}, #{username}, #{address}, #{socsecId}, #{taxRate}, #{otherCast}, #{phone}, #{hourWage}, #{salary}, #{commissionRate}, #{durationLimit});
     </insert>
 
+    <update id="updateUserById">
+        update user
+        <set>
+            <if test="type != null and type.length() > 0">
+                type = #{type}
+            </if>
+            <if test="username != null and username.length() > 0">
+                username = #{username}
+            </if>
+            <if test="address != null and address.length() > 0">
+                address = #{address}
+            </if>
+            <if test="socsecId != null and socsecId.length() > 0">
+                socsecId = #{socsecId}
+            </if>
+            <if test="taxRate != null and taxRate.length() > 0">
+                taxRate = #{taxRate}
+            </if>
+            <if test="otherCast != null and otherCast.length() > 0">
+                otherCast = #{otherCast}
+            </if>
+            <if test="phone != null and phone.length() > 0">
+                phone = #{phone}
+            </if>
+            <if test="hourWage != null and hourWage.length() > 0">
+                hourWage = #{hourWage}
+            </if>
+            <if test="salary != null and salary.length() > 0">
+                salary = #{salary}
+            </if>
+            <if test="commissionRate != null and commissionRate.length() > 0">
+                commissionRate = #{commissionRate}
+            </if>
+            <if test="durationLimit != null and durationLimit.length() > 0">
+                durationLimit = #{durationLimit}
+            </if>
+            <if test="payment != null and payment.length() > 0">
+                payment = #{payment}
+            </if>
+            <if test="mailAddress != null and mailAddress.length() > 0">
+                mailAddress = #{mailAddress}
+            </if>
+            <if test="bankName != null and bankName.length() > 0">
+                bankName = #{bankName}
+            </if>
+            <if test="bankAccount != null and bankAccount.length() > 0">
+                bankAccount = #{bankAccount}
+            </if>
+            id: string; // 员工名字的拼音，后端自动检测拼音是否重复，如有重复要自动加上数字
+        </set>
+        where id = #{id}
+    </update>
+
     <delete id="deleteUserById">
         delete from user where id = #{id}
     </delete>
 
     <select id="selectUserById" resultType="com.salary.pojo.User">
         select * from user where id = #{id};
+    </select>
+
+    <select id="selectNameById" resultType="string">
+        select username
+        from user
+        where id = #{employeeId};
     </select>
 </mapper>
