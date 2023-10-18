@@ -1,7 +1,9 @@
 package com.salary.dto;
 
 import com.salary.pojo.Auth;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,15 +11,10 @@ import org.springframework.stereotype.Component;
  * @create 2023-10-18 12:26
  */
 
-@Component
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AuthDTO extends Auth {
     private Boolean remember;
-
-    public Boolean getRemember() {
-        return remember;
-    }
-
-    public void setRemember(Boolean remember) {
-        this.remember = remember;
-    }
+    private String jwt;
 }

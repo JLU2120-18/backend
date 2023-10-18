@@ -4,6 +4,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.salary.dao.UserMapper">
+    <sql id="Base_Information_Column">
+        id, type, username, address, socsec_id, tax_rate, other_cast, phone, hour_wage, salary, commission_rate, duration_limit
+    </sql>
 
     <insert id="insert">
         insert into user(type, id, username, address, socsec_id, tax_rate, other_cast, phone, hour_wage, salary, commission_rate, duration_limit)
@@ -73,10 +76,55 @@
         where id = #{id};
     </select>
 
+    <select id="selectUserBaseInfoById" resultType="com.salary.pojo.User">
+        select <include refid="Base_Information_Column" />
+        from user
+        where id = #{id}
+    </select>
+
+    <select id="selectUserBaseInfoAndPaymentById" resultType="com.salary.pojo.User">
+        select <include refid="Base_Information_Column" />, payment
+        from user
+        where id = #{id}
+    </select>
+
     <select id="selectNameById" resultType="string">
         select username
         from user
         where id = #{employeeId};
     </select>
+
+    <select id="selectIdsPrefixWithId" resultType="java.lang.String">
+        select id
+        from user
+        <where>
+            <if test="id != null and id.length() > 0">
+                id like #{id}"%"
+            </if>
+        </where>
+    </select>
+
+    <select id="countPrefixWithId" resultType="java.lang.Long">
+        select count(*)
+        from user
+        <where>
+            <if test="id != null and id.length() > 0">
+                id like #{id}"%"
+            </if>
+        </where>
+    </select>
+
+    <select id="pageUserBaseInfoPrefixWithId" resultType="com.salary.pojo.User">
+        select <include refid="Base_Information_Column" />
+        from user
+        <where>
+            <if test="id != null and id.length() > 0">
+                id like #{id}"%"
+            </if>
+        </where>
+        limit #{pageBegin}, #{pageSize}
+    </select>
+
+
 
 </mapper>

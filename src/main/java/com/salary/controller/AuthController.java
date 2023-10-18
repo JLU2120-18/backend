@@ -1,8 +1,6 @@
 package com.salary.controller;
 
 import com.salary.dto.AuthDTO;
-import com.salary.dto.UserDTO;
-import com.salary.pojo.Auth;
 import com.salary.service.AuthService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +23,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/login")
-    public UserDTO login(@RequestBody AuthDTO authDTO) {
+    public AuthDTO login(@RequestBody AuthDTO authDTO) {
         return authService.login(authDTO);
     }
 }

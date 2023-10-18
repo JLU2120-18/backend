@@ -3,6 +3,7 @@ package com.salary.service.impl;
 import com.salary.dao.AuthMapper;
 import com.salary.dao.UserMapper;
 import com.salary.pojo.Auth;
+import com.salary.common.Page;
 import com.salary.pojo.User;
 import com.salary.service.UserService;
 import com.salary.utils.JwtUtils;
@@ -13,6 +14,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Jialin
@@ -61,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 获取员工信息
+     * 获取单个员工信息
      * @param id
      * @param jwt
      * @return
@@ -77,7 +79,7 @@ public class UserServiceImpl implements UserService {
 
         // 2.如果id为空, 则说明当前查询为员工自己信息
         if(id == null || id.length() == 0) {
-            user = userMapper.selectUserById(userId);
+            user = userMapper.selectUserBaseInfoAndPaymentById(userId);
             return user;
         }
 
@@ -91,7 +93,7 @@ public class UserServiceImpl implements UserService {
             if(selectedRole == null || !selectedRole.equals(role)) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             } else {
-                user = userMapper.selectUserById(id);
+                user = userMapper.selectUserBaseInfoAndPaymentById(id);
                 return user;
             }
         }
@@ -142,5 +144,57 @@ public class UserServiceImpl implements UserService {
         if(success < 2) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    /**
+     * 获取以id为前缀的员工信息分页
+     * @param jwt
+     * @param id
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public Page<User> getEmployees(String jwt, String id, long pageIndex, long pageSize) {
+        // 1.解析jwt
+        Claims claims = JwtUtils.parseToken(jwt);
+        String userId = claims.get("id").toString();
+        String role = claims.get("role").toString();
+
+        // 2.判断当前操作用户是否为payroll
+        if(role == null || !"payroll".equals(role)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        // 3.判断当前操作用户在数据库中的role是否与传进来的role一致
+        String selectedRole = authMapper.selectRoleById(userId);
+        if(selectedRole == null || !selectedRole.equals(role)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        // 4.分页查询以id为前缀的员工信息
+        Page<User> page = new Page<>();
+        page.setData(userMapper.pageUserBaseInfoPrefixWithId(id, (pageIndex - 1) * pageSize, pageSize));
+        page.setTotal(userMapper.countPrefixWithId(id));
+        page.setCurrent(pageIndex);
+        page.setSize(pageSize);
+        return page;
+    }
+
+    /**
+     * 获取以id为前缀的所有员工id
+     * @param id
+     * @return
+     */
+    @Override
+    public Page<String> suggestIds(String id) {
+        // 判断id是否合法
+        if(id == null || id.length() == 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        Page<String> page = new Page<>();
+        page.setData(userMapper.selectIdsPrefixWithId(id));
+        return page;
     }
 }

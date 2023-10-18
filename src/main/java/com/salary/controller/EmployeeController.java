@@ -1,11 +1,13 @@
 package com.salary.controller;
 
+import com.salary.common.Page;
 import com.salary.pojo.User;
 import com.salary.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author Jialin
@@ -30,7 +32,7 @@ public class EmployeeController {
     }
 
     /**
-     * 获取员工信息
+     * 获取单个员工信息
      * @param id
      * @param jwt
      * @return
@@ -38,6 +40,29 @@ public class EmployeeController {
     @GetMapping("/get")
     public User get(@RequestParam String id, @RequestParam String jwt) {
         return userService.getEmployee(id, jwt);
+    }
+
+    /**
+     * 获取以id为前缀的员工信息分页
+     * @param jwt
+     * @param id
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    @GetMapping("/gets")
+    public Page<User> gets(@RequestParam String jwt, @RequestParam String id, @RequestParam long pageIndex, @RequestParam long pageSize) {
+        return userService.getEmployees(jwt, id, pageIndex, pageSize);
+    }
+
+    /**
+     * 获取以id为前缀的所有员工id
+     * @param id
+     * @return
+     */
+    @GetMapping("/sug")
+    public Page<String> suggest(@RequestParam String id) {
+        return userService.suggestIds(id);
     }
 
     /**

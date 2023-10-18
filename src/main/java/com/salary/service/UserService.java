@@ -1,6 +1,9 @@
 package com.salary.service;
 
+import com.salary.common.Page;
 import com.salary.pojo.User;
+
+import java.util.List;
 
 /**
  * @author Jialin
@@ -11,4 +14,6 @@ public interface UserService {
     User getEmployee(String id, String jwt);
     void updateEmployee(User user);
     void deleteEmployee(User user);
+    Page<User> getEmployees(String jwt, String id, long pageIndex, long pageSize);
+    Page<String> suggestIds(String id);
 }
