@@ -3,11 +3,14 @@ package com.salary.service.impl;
 import com.salary.dao.AuthMapper;
 import com.salary.dao.UserMapper;
 import com.salary.pojo.Auth;
-import com.salary.pojo.JWT;
 import com.salary.pojo.User;
 import com.salary.service.UserService;
+import com.salary.utils.JwtUtils;
+import io.jsonwebtoken.Claims;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.Resource;
 
@@ -53,5 +56,73 @@ public class UserServiceImpl implements UserService {
         authMapper.insert(auth);
 
         return user;
+    }
+
+    /**
+     * 获取员工信息
+     * @param jwt
+     * @return
+     */
+    @Override
+    public User getEmployee(String id, String jwt) {
+        User user = null;
+
+        // 1.解析jwt
+        Claims claims = JwtUtils.parseToken(jwt);
+        String userId = claims.get("id").toString();
+        String role = claims.get("role").toString();
+
+        // 2.如果id为空, 则说明当前查询为员工自己信息
+        if(id == null || "".equals(id)) {
+            user = userMapper.selectUserById(id);
+            return user;
+        }
+
+        // 3.id不为空, 则说明当前查询为管理员操作, 需要判断role是否为payroll
+        if(!"payroll".equals(role)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        } else {
+            String selectedRole = authMapper.selectRoleById(id);
+
+            // 4.判断和数据库role信息是否一致
+            if(selectedRole == null || !selectedRole.equals(role)) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            } else {
+                user = userMapper.selectUserById(id);
+                return user;
+            }
+        }
+    }
+
+    /**
+     * 更新员工信息
+     * @param user
+     */
+    @Override
+    public void updateEmployee(User user) {
+
+    }
+
+    /**
+     * 删除员工
+     * @param user
+     */
+    @Override
+    public void deleteEmployee(User user) {
+        // 1.获取员工id
+        String id = user.getId();
+
+        // 2.判断id是否合法
+        if(id == null || "".equals(id)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        // 3.根据id删除对应员工
+        int success = userMapper.deleteUserById(id);
+
+        // 4.删除失败, 抛出异常
+        if(success == 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
 }

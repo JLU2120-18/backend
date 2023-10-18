@@ -8,4 +8,11 @@
         insert into auth (id, username, password, role)
         values (#{id}, #{username}, #{password}, #{role})
     </insert>
+
+    <select id="selectRoleById" resultType="java.lang.String">
+        select role from auth where id = #{id}
+    </select>
+    <select id="selectAuthById" resultType="com.salary.pojo.Auth">
+        select * from auth where id = #{id}
+    </select>
 </mapper>

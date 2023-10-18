@@ -9,6 +9,10 @@
         values (#{type}, #{id}, #{username}, #{address}, #{socsecId}, #{taxRate}, #{otherCast}, #{phone}, #{hourWage}, #{salary}, #{commissionRate}, #{durationLimit});
     </insert>
 
+    <delete id="deleteUserById">
+        delete from user where id = #{id}
+    </delete>
+
     <select id="selectUserById" resultType="com.salary.pojo.User">
         select * from user where id = #{id};
     </select>

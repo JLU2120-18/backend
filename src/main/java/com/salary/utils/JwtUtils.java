@@ -23,6 +23,15 @@ public class JwtUtils {
                 .compact();
     }
 
+    // 创建 JWT
+    public static String createToken(String id, String role, Date expiration) {
+        return Jwts.builder().setSubject("JWTToken") // 设置主题(Subject)
+                .setExpiration(expiration)
+                .claim("id", id).claim("role", role)
+                .signWith(SignatureAlgorithm.HS256, secretKey) // 使用指定的算法和密钥签名
+                .compact();
+    }
+
     // 解析 JWT
     public static Claims parseToken(String jwt) {
         return Jwts.parser()

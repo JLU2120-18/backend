@@ -9,4 +9,7 @@ import com.salary.pojo.User;
  */
 public interface UserService {
     User createEmployee(User user);
+    User getEmployee(String id, String jwt);
+    void updateEmployee(User user);
+    void deleteEmployee(User user);
 }
