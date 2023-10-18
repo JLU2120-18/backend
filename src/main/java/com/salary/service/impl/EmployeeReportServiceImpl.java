@@ -72,8 +72,6 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
      *创建项目总工作时数报告
      */
     public ReportVO<ProjectDurationReport[]> createProjDuration(String timeCardId,String startTime,String endTime,String employeeId){
-        if (timeCardId == null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         //根据id查找用户名
         String employeeName = userMapper.selectNameById(employeeId);
         if (employeeName == null)
@@ -84,8 +82,13 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
         TimeCardProjectData[] data = new TimeCardProjectData[projects.size()];
         int i = 0;
         for (TimeCardProject project : projects){
-            data[i].setProjectName(project.getProjectName());
-            data[i].setDuration(project.getDuration());
+            String projectName = project.getProjectName();
+            BigDecimal duration = project.getDuration();
+            TimeCardProjectData timeCardProjectData = new TimeCardProjectData(
+                    projectName,duration
+            );
+            data[i] = timeCardProjectData;
+            i++;
         }
         //封装报告信息
         ProjectDurationReport projectDurationReport = new ProjectDurationReport(

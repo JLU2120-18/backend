@@ -35,13 +35,21 @@ public class JwtUtils {
                 .getBody();
     }
 
-    public static void main(String[] args) {
-//        String id = "lulongjie";
-//        String role = "payroll";
-        System.out.println(secretKey);
-        String id = "aotuo1";
-        String role = "employee";
-        String token = createToken(id,role);
-        System.out.println(token);
-    }
+//    public static String createToken(String id, String role,String secretKey) {
+//        Date expiration = new Date(System.currentTimeMillis() + 360000 * 1000); // 设置过期时间为1小时后
+//        return Jwts.builder().setSubject("JWTToken") // 设置主题(Subject)
+//                .setExpiration(expiration)
+//                .claim("id", id).claim("role", role)
+//                .signWith(SignatureAlgorithm.HS256, secretKey) // 使用指定的算法和密钥签名
+//                .compact();
+//    }
+//    public static void main(String[] args) {
+////        String id = "lulongjie";
+////        String role = "payroll";
+////        System.out.println(secretKey);
+//        String id = "aotuo1";
+//        String role = "employee";
+//        String token = createToken(id,role,"pphllj");
+//        System.out.println(token);
+//    }
 }

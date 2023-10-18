@@ -52,11 +52,13 @@ public class EmployeeReportController {
                 return employeeReportServiceImpl.createDuration(startTime, endTime, employeeId);
             case "proj_duration":
                 String timeCardId = form.getTimeCardId();
+                if (timeCardId == null)
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
                 return employeeReportServiceImpl.createProjDuration(timeCardId, startTime, endTime, employeeId);
             case "vacation":
-                return employeeReportServiceImpl.createSalary(startTime, endTime, employeeId);
-            case "salary":
                 return employeeReportServiceImpl.createVacation(startTime, endTime, employeeId);
+            case "salary":
+                return employeeReportServiceImpl.createSalary(startTime, endTime, employeeId);
             default:
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
