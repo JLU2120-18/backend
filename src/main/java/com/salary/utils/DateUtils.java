@@ -22,15 +22,13 @@ public class DateUtils {
         return Integer.parseInt(d.substring(5,7));
     }
 
-    public static int getDays(List<TimeCard> timeCards){
+    public static int getDays(List<TimeCard> timeCards,String startTime,String endTime){
         Set<String> set = new HashSet<>();
         // 定义日期格式
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String start = timeCards.get(0).getStartTime();
-        String end = timeCards.get(timeCards.size()-1).getEndTime();
         // 解析字符串为LocalDateTime对象
-        LocalDateTime startDate = LocalDateTime.parse(start, formatter);
-        LocalDateTime endDate = LocalDateTime.parse(end, formatter);
+        LocalDateTime startDate = LocalDateTime.parse(startTime, formatter);
+        LocalDateTime endDate = LocalDateTime.parse(endTime, formatter);
 
         // 计算天数差
         Duration duration = Duration.between(startDate, endDate);
@@ -39,8 +37,7 @@ public class DateUtils {
             String s = timeCard.getStartTime().substring(0,11);
             set.add(s);
         }
-        int dif = (int)(days - set.size());
 
-        return dif;
+        return (int)(days - set.size() * 7);
     }
 }

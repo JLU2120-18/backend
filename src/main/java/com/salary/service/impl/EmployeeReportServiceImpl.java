@@ -106,8 +106,9 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
     public ReportVO<VacationReport[]> createVacation(String startTime, String endTime, String employeeId){
         //根据用户id查询考勤卡
         List<TimeCard> timeCards =timeCardMapper.selectTimeCardsById(employeeId,startTime,endTime);
+
         //计算请假天数
-        int days = DateUtils.getDays(timeCards);
+        int days = DateUtils.getDays(timeCards,startTime,endTime);
         if (days < 0){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -136,7 +137,7 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
         String name = user.getUsername();
         //根据员工类型计算salary
         String type = user.getType();
-        BigDecimal sum = new BigDecimal(0);
+        BigDecimal sum;
         //计算除去税收百分比
         BigDecimal taxRate = BigDecimal.valueOf(1).subtract(user.getTaxRate());
         //其他减免
@@ -148,37 +149,39 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
         String d = sdf.format(date);
         //求月份用于计算薪资
         BigDecimal months = BigDecimal.valueOf(DateUtils.getMonths(d) - 1);
-
-
-        //时薪
+        System.out.println(months);
         switch (type) {
+            //时薪
             case "wage":
                 //年初日期
                 String start = DateUtils.getYearInit(d);
-                //获取考勤卡，要注意是否可以加班以及加班工资计算
+                //获取时薪
+                BigDecimal hourWage = user.getHourWage();
+                BigDecimal duration = BigDecimal.valueOf(0);
+                //获取用户最大工时限制
+                BigDecimal durationLimit = BigDecimal.valueOf(user.getDurationLimit());
+                //基础工时
+                BigDecimal baseuration = BigDecimal.valueOf(40);
                 List<TimeCard> timecards = timeCardMapper.selectTimeCardsById(employeeId,start,d);
                 for (TimeCard timecard : timecards) {
-                    BigDecimal x = new BigDecimal(8);
-                    BigDecimal duration = timecard.getDuration();
-                    BigDecimal hourWage = user.getHourWage();
-                    if (duration.compareTo(x) < 0) {
-                        sum = hourWage.multiply(duration).subtract(cast).multiply(taxRate);
-                    } else {
-                        int limit = user.getDurationLimit();
-                        if (limit != 0) {
-                            sum = hourWage.multiply(x).subtract(cast).multiply(taxRate);
-                        } else {
-                            BigDecimal cnt = duration.subtract(x);
-                            sum = hourWage.multiply(x).
-                                    add(hourWage.multiply(BigDecimal.valueOf(1.5)).
-                                            multiply(cnt)).subtract(cast).multiply(taxRate);
-                        }
+                     duration = duration.add(timecard.getDuration());
+                }
+                if (duration.compareTo(baseuration) < 0) {
+                    sum = hourWage.multiply(duration).subtract(cast).multiply(taxRate);
+                } else {
+                    if (duration.compareTo(durationLimit) > 0) {
+                        duration = durationLimit;
                     }
+                    BigDecimal cnt = duration.subtract(baseuration);
+                    sum = hourWage.multiply(baseuration).
+                            add(hourWage.multiply(BigDecimal.valueOf(1.5)).
+                                    multiply(cnt)).subtract(cast).multiply(taxRate);
                 }
                 break;
             case "salary":          //受雇
                 //固定工资直接获取salary
                 sum = user.getSalary().multiply(months).subtract(cast).multiply(taxRate);
+                System.out.println(sum);
                 break;
             case "commission":    //委托
                 BigDecimal commissionRate = user.getCommissionRate();

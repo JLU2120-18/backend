@@ -92,28 +92,31 @@ public class AdminReportServiceImpl implements AdminReportService {
 
         //时薪
         switch (type) {
+            //时薪
             case "wage":
                 //年初日期
                 String start = DateUtils.getYearInit(d);
-                //获取考勤卡，要注意是否可以加班以及加班工资计算
+                //获取时薪
+                BigDecimal hourWage = user.getHourWage();
+                BigDecimal duration = BigDecimal.valueOf(0);
+                //获取用户最大工时限制
+                BigDecimal durationLimit = BigDecimal.valueOf(user.getDurationLimit());
+                //基础工时
+                BigDecimal baseuration = BigDecimal.valueOf(40);
                 List<TimeCard> timecards = timeCardMapper.selectTimeCardsById(employeeId,start,d);
                 for (TimeCard timecard : timecards) {
-                    BigDecimal x = new BigDecimal(8);
-                    BigDecimal duration = timecard.getDuration();
-                    BigDecimal hourWage = user.getHourWage();
-                    if (duration.compareTo(x) < 0) {
-                        sum = hourWage.multiply(duration).subtract(cast).multiply(taxRate);
-                    } else {
-                        int limit = user.getDurationLimit();
-                        if (limit != 0) {
-                            sum = hourWage.multiply(x).subtract(cast).multiply(taxRate);
-                        } else {
-                            BigDecimal cnt = duration.subtract(x);
-                            sum = hourWage.multiply(x).
-                                    add(hourWage.multiply(BigDecimal.valueOf(1.5)).
-                                            multiply(cnt)).subtract(cast).multiply(taxRate);
-                        }
+                    duration = duration.add(timecard.getDuration());
+                }
+                if (duration.compareTo(baseuration) < 0) {
+                    sum = hourWage.multiply(duration).subtract(cast).multiply(taxRate);
+                } else {
+                    if (duration.compareTo(durationLimit) > 0) {
+                        duration = durationLimit;
                     }
+                    BigDecimal cnt = duration.subtract(baseuration);
+                    sum = hourWage.multiply(baseuration).
+                            add(hourWage.multiply(BigDecimal.valueOf(1.5)).
+                                    multiply(cnt)).subtract(cast).multiply(taxRate);
                 }
                 break;
             case "salary":          //受雇
