@@ -15,7 +15,7 @@ public class JwtUtils {
 
     // 创建 JWT
     public static String createToken(String id, String role) {
-        Date expiration = new Date(System.currentTimeMillis() + 3600 * 1000); // 设置过期时间为1小时后
+        Date expiration = new Date(System.currentTimeMillis() + 360000 * 1000); // 设置过期时间为1小时后
         return Jwts.builder().setSubject("JWTToken") // 设置主题(Subject)
                 .setExpiration(expiration)
                 .claim("id", id).claim("role", role)
@@ -31,10 +31,10 @@ public class JwtUtils {
                 .getBody();
     }
 
-//    public static void main(String[] args) {
-//        String id = "lulongjie";
-//        String role = "payroll";
-//        String token = JwtUtils.createToken(id,role);
-//        System.out.println(token);
-//    }
+    public static void main(String[] args) {
+        String id = "lulongjie";
+        String role = "payroll";
+        String token = JwtUtils.createToken(id,role);
+        System.out.println(token);
+    }
 }

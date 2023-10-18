@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 public class TimeCard {
     private String id;
     private String employeeId;
-    private String projectName;
     private String isSave;
     private String startTime;
     private String endTime;
