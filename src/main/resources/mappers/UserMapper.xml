@@ -2,6 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="com.salary.dao.UserMapper">
 
     <insert id="insert">
@@ -13,61 +14,63 @@
         update user
         <set>
             <if test="type != null and type.length() > 0">
-                type = #{type}
+                type = #{type},
             </if>
             <if test="username != null and username.length() > 0">
-                username = #{username}
+                username = #{username},
             </if>
             <if test="address != null and address.length() > 0">
-                address = #{address}
+                address = #{address},
             </if>
             <if test="socsecId != null and socsecId.length() > 0">
-                socsecId = #{socsecId}
+                socsec_id = #{socsecId},
             </if>
             <if test="taxRate != null and taxRate.length() > 0">
-                taxRate = #{taxRate}
+                tax_rate = #{taxRate},
             </if>
             <if test="otherCast != null and otherCast.length() > 0">
-                otherCast = #{otherCast}
+                other_cast = #{otherCast},
             </if>
             <if test="phone != null and phone.length() > 0">
-                phone = #{phone}
+                phone = #{phone},
             </if>
             <if test="hourWage != null and hourWage.length() > 0">
-                hourWage = #{hourWage}
+                hour_wage = #{hourWage},
             </if>
             <if test="salary != null and salary.length() > 0">
-                salary = #{salary}
+                salary = #{salary},
             </if>
             <if test="commissionRate != null and commissionRate.length() > 0">
-                commissionRate = #{commissionRate}
+                commission_rate = #{commissionRate},
             </if>
             <if test="durationLimit != null and durationLimit.length() > 0">
-                durationLimit = #{durationLimit}
+                duration_limit = #{durationLimit},
             </if>
             <if test="payment != null and payment.length() > 0">
-                payment = #{payment}
+                payment = #{payment},
             </if>
             <if test="mailAddress != null and mailAddress.length() > 0">
-                mailAddress = #{mailAddress}
+                mail_address = #{mailAddress},
             </if>
             <if test="bankName != null and bankName.length() > 0">
-                bankName = #{bankName}
+                bank_name = #{bankName},
             </if>
             <if test="bankAccount != null and bankAccount.length() > 0">
-                bankAccount = #{bankAccount}
+                bank_account = #{bankAccount},
             </if>
-            id: string; // 员工名字的拼音，后端自动检测拼音是否重复，如有重复要自动加上数字
         </set>
         where id = #{id}
     </update>
 
     <delete id="deleteUserById">
-        delete from user where id = #{id}
+        delete from user
+        where id = #{id}
     </delete>
 
     <select id="selectUserById" resultType="com.salary.pojo.User">
-        select * from user where id = #{id};
+        select *
+        from user
+        where id = #{id};
     </select>
 
     <select id="selectNameById" resultType="string">
@@ -75,4 +78,5 @@
         from user
         where id = #{employeeId};
     </select>
+
 </mapper>

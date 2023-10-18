@@ -40,7 +40,7 @@ public class AuthServiceImpl implements AuthService {
         Boolean remember = authDTO.getRemember();
 
         // 2.后端加强验证, 防止输入为空
-        if(id == null || id.length() > 0 || password == null || password.length() > 0) {
+        if(id == null || id.length() == 0 || password == null || password.length() == 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 

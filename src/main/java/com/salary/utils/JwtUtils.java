@@ -43,4 +43,8 @@ public class JwtUtils {
                 .parseClaimsJws(jwt)
                 .getBody();
     }
+
+//    public static void main(String[] args) {
+//        System.out.println(JwtUtils.createToken("xianzhi", "employee"));
+//    }
 }

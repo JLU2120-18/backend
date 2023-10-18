@@ -62,6 +62,7 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 获取员工信息
+     * @param id
      * @param jwt
      * @return
      */
@@ -76,7 +77,7 @@ public class UserServiceImpl implements UserService {
 
         // 2.如果id为空, 则说明当前查询为员工自己信息
         if(id == null || id.length() == 0) {
-            user = userMapper.selectUserById(id);
+            user = userMapper.selectUserById(userId);
             return user;
         }
 
@@ -106,7 +107,7 @@ public class UserServiceImpl implements UserService {
         String id = user.getId();
 
         // 2.判断id是否合法
-        if(id == null || id.length() > 0) {
+        if(id == null || id.length() == 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
@@ -129,7 +130,7 @@ public class UserServiceImpl implements UserService {
         String id = user.getId();
 
         // 2.判断id是否合法
-        if(id == null || id.length() > 0) {
+        if(id == null || id.length() == 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
