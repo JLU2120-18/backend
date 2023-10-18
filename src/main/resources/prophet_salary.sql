@@ -109,7 +109,7 @@ values ('1', 'aotuo1', '10', '1', '2023-04-07 10:21:55', '2023-04-08 10:21:55'),
 
 create table time_card_project
 (
-    id           varchar(32) primary key,
+    id           varchar(32),
     project_name varchar(32) comment '项目名称',
     duration     decimal(8, 2) comment '工作时长'
 );

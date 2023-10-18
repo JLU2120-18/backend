@@ -14,12 +14,6 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.Resource;
-import java.util.List;
-
-/**
- * @author Jialin
- * @create 2023-10-16 13:09
- */
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,7 +23,7 @@ public class UserServiceImpl implements UserService {
     private AuthMapper authMapper;
 
     /**
-     * 创建员工
+     * 添加员工
      * @param user
      * @return
      */
@@ -56,20 +50,24 @@ public class UserServiceImpl implements UserService {
         Auth auth = new Auth(userId, user.getUsername(), DigestUtils.md5DigestAsHex(user.getPhone().getBytes()), "employee");
 
         // 5.数据库插入user和auth
-        userMapper.insert(user);
-        authMapper.insert(auth);
+        int success = userMapper.insert(user);
+        success += authMapper.insert(auth);
+
+        if(success < 2) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
 
         return user;
     }
 
     /**
-     * 获取单个员工信息
+     * 查询单个员工信息
      * @param id
      * @param jwt
      * @return
      */
     @Override
-    public User getEmployee(String id, String jwt) {
+    public User getEmployee(String jwt, String id) {
         User user = null;
 
         // 1.解析jwt
@@ -147,7 +145,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 获取以id为前缀的员工信息分页
+     * 查询以id为前缀的员工信息分页
      * @param jwt
      * @param id
      * @param pageIndex
@@ -182,7 +180,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * 获取以id为前缀的所有员工id
+     * 查询以id为前缀的所有员工id
      * @param id
      * @return
      */

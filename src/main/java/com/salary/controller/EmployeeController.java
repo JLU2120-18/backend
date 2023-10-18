@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * @author Jialin
@@ -22,7 +21,7 @@ public class EmployeeController {
     private UserService userService;
 
     /**
-     * 创建员工
+     * 添加员工
      * @param user
      * @return
      */
@@ -32,18 +31,18 @@ public class EmployeeController {
     }
 
     /**
-     * 获取单个员工信息
-     * @param id
+     * 查询单个员工信息
      * @param jwt
+     * @param id
      * @return
      */
     @GetMapping("/get")
-    public User get(@RequestParam String id, @RequestParam String jwt) {
-        return userService.getEmployee(id, jwt);
+    public User get(@RequestParam("jwt") String jwt, @RequestParam("id") String id) {
+        return userService.getEmployee(jwt, id);
     }
 
     /**
-     * 获取以id为前缀的员工信息分页
+     * 查询以id为前缀的员工信息分页
      * @param jwt
      * @param id
      * @param pageIndex
@@ -51,17 +50,17 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/gets")
-    public Page<User> gets(@RequestParam String jwt, @RequestParam String id, @RequestParam long pageIndex, @RequestParam long pageSize) {
+    public Page<User> gets(@RequestParam("jwt") String jwt, @RequestParam("id") String id, @RequestParam("pageIndex") long pageIndex, @RequestParam("pageSize") long pageSize) {
         return userService.getEmployees(jwt, id, pageIndex, pageSize);
     }
 
     /**
-     * 获取以id为前缀的所有员工id
+     * 查询以id为前缀的所有员工id
      * @param id
      * @return
      */
     @GetMapping("/sug")
-    public Page<String> suggest(@RequestParam String id) {
+    public Page<String> suggest(@RequestParam("id") String id) {
         return userService.suggestIds(id);
     }
 

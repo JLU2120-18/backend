@@ -28,25 +28,25 @@
             <if test="socsecId != null and socsecId.length() > 0">
                 socsec_id = #{socsecId},
             </if>
-            <if test="taxRate != null and taxRate.length() > 0">
+            <if test="taxRate != null">
                 tax_rate = #{taxRate},
             </if>
-            <if test="otherCast != null and otherCast.length() > 0">
+            <if test="otherCast != null">
                 other_cast = #{otherCast},
             </if>
             <if test="phone != null and phone.length() > 0">
                 phone = #{phone},
             </if>
-            <if test="hourWage != null and hourWage.length() > 0">
+            <if test="hourWage != null">
                 hour_wage = #{hourWage},
             </if>
-            <if test="salary != null and salary.length() > 0">
+            <if test="salary != null">
                 salary = #{salary},
             </if>
-            <if test="commissionRate != null and commissionRate.length() > 0">
+            <if test="commissionRate != null">
                 commission_rate = #{commissionRate},
             </if>
-            <if test="durationLimit != null and durationLimit.length() > 0">
+            <if test="durationLimit != null">
                 duration_limit = #{durationLimit},
             </if>
             <if test="payment != null and payment.length() > 0">
@@ -66,7 +66,8 @@
     </update>
 
     <delete id="deleteUserById">
-        delete from user
+        delete
+        from user
         where id = #{id}
     </delete>
 

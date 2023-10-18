@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 描述：
@@ -17,6 +18,7 @@ public class PurchaseOrder implements Serializable {
     private String id;
     private String employeeId;
     private String productName;
+    private BigDecimal pay;
     private String phone;
     private String address;
     private String date;

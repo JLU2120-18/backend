@@ -10,11 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 
-/**
- * @author Jialin
- * @create 2023-10-17 15:20
- */
-
 @Slf4j
 @RestController
 @RequestMapping("/api/auth")

@@ -17,7 +17,7 @@ public class TimeCard implements Serializable {
     private static final long serialVersionUID = 1L;
     private String id;
     private String employeeId;
-    private String isSave;
+    private Boolean isSave;
     private String startTime;
     private String endTime;
     private BigDecimal duration;

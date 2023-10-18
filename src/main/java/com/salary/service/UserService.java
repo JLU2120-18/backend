@@ -11,7 +11,7 @@ import java.util.List;
  */
 public interface UserService {
     User createEmployee(User user);
-    User getEmployee(String id, String jwt);
+    User getEmployee(String jwt, String id);
     void updateEmployee(User user);
     void deleteEmployee(User user);
     Page<User> getEmployees(String jwt, String id, long pageIndex, long pageSize);
