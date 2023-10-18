@@ -1,23 +1,24 @@
-package com.salary.pojo;
+package com.salary.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author Jialin
- * @create 2023-10-17 13:59
+ * @create 2023-10-18 19:23
  */
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TimeCardProject implements Serializable {
+public class Page<T> implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String id;
-    private String projectName;
-    private BigDecimal duration;
+    protected List<T> data;
+    protected Long total;
+    protected Long size;
+    protected Long current;
 }

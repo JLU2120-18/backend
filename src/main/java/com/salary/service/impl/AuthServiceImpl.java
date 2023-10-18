@@ -2,9 +2,7 @@ package com.salary.service.impl;
 
 import com.salary.dao.AuthMapper;
 import com.salary.dto.AuthDTO;
-import com.salary.dto.UserDTO;
 import com.salary.pojo.Auth;
-import com.salary.pojo.User;
 import com.salary.service.AuthService;
 import com.salary.utils.JwtUtils;
 import org.springframework.http.HttpStatus;
@@ -27,17 +25,17 @@ public class AuthServiceImpl implements AuthService {
 
     /**
      * 登录
-     * @param authDTO
+     * @param auth
      * @return
      */
     @Override
-    public UserDTO login(AuthDTO authDTO) {
-        UserDTO userDTO = null;
+    public AuthDTO login(AuthDTO auth) {
+        AuthDTO authDTO = null;
 
         // 1.获取auth相关属性
-        String id = authDTO.getId();
-        String password = DigestUtils.md5DigestAsHex(authDTO.getPassword().getBytes());
-        Boolean remember = authDTO.getRemember();
+        String id = auth.getId();
+        String password = DigestUtils.md5DigestAsHex(auth.getPassword().getBytes());
+        Boolean remember = auth.getRemember();
 
         // 2.后端加强验证, 防止输入为空
         if(id == null || id.length() == 0 || password == null || password.length() == 0) {
@@ -50,13 +48,13 @@ public class AuthServiceImpl implements AuthService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
-        // 4.返回userDTO
-        userDTO = new UserDTO();
-        userDTO.setId(id);
-        userDTO.setUsername(selectedAuth.getUsername());
-        userDTO.setRole(selectedAuth.getRole());
-        String jwt = remember ? JwtUtils.createToken(id, userDTO.getRole(), new Date(System.currentTimeMillis() + 14 * 24 * 3600 * 1000)) : JwtUtils.createToken(id, userDTO.getRole());
-        userDTO.setJwt(jwt);
-        return userDTO;
+        // 4.返回authDTO
+        authDTO = new AuthDTO();
+        authDTO.setId(id);
+        authDTO.setUsername(selectedAuth.getUsername());
+        authDTO.setRole(selectedAuth.getRole());
+        String jwt = remember ? JwtUtils.createToken(id, authDTO.getRole(), new Date(System.currentTimeMillis() + 14 * 24 * 3600 * 1000)) : JwtUtils.createToken(id, authDTO.getRole());
+        authDTO.setJwt(jwt);
+        return authDTO;
     }
 }
