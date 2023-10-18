@@ -5,7 +5,7 @@
 <mapper namespace="com.salary.dao.TimeCardMapper">
 
     <sql id="Base_Column_List">
-        id, employee_id, project_name,duration,is_save, start_time, end_time
+        id, employee_id, duration,is_save, start_time, end_time
     </sql>
     <sql id="project">
         id,project_name,duration
@@ -14,9 +14,10 @@
     <select id="selectTimeCardsById" resultType="com.salary.pojo.TimeCard">
         select
         <include refid="Base_Column_List"/>
-        from time_card where employee_id = #{employeeId} and
-                            #{startTime} >= start_time and
-                            end_time >= #{endTime} order by start_time;
+        from time_card where employee_id = #{employeeId}
+                         and start_time > #{startTime}
+                         and end_time &lt; #{endTime}
+                            order by start_time;
     </select>
     <select id="selectProjByTimeCardId" resultType="com.salary.pojo.TimeCardProject">
         select

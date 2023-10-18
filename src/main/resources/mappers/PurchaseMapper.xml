@@ -7,7 +7,7 @@
         <id column="id" jdbcType="VARCHAR" property="id" />
         <result column="pay" jdbcType="DECIMAL" property="pay" />
     </resultMap>
-    <select id="selectAllPay" resultMap="BaseResultMap">
+    <select id="selectAllPay" resultType="decimal">
         select pay from purchase_order where employee_id = #{employeeId};
     </select>
 </mapper>

@@ -87,7 +87,7 @@ public class AdminReportService {
         Date date = new Date();
         //当前日期
         String d = sdf.format(date);
-        BigDecimal months = BigDecimal.valueOf(DateUtils.getMonths(d));
+        BigDecimal months = BigDecimal.valueOf(DateUtils.getMonths(d) - 1);
 
         //时薪
         switch (type) {
@@ -101,23 +101,23 @@ public class AdminReportService {
                     BigDecimal duration = timecard.getDuration();
                     BigDecimal hourWage = user.getHourWage();
                     if (duration.compareTo(x) < 0) {
-                        sum = hourWage.multiply(duration).multiply(taxRate).subtract(cast);
+                        sum = hourWage.multiply(duration).subtract(cast).multiply(taxRate);
                     } else {
                         int limit = user.getDurationLimit();
                         if (limit != 0) {
-                            sum = hourWage.multiply(x).multiply(taxRate).subtract(cast);
+                            sum = hourWage.multiply(x).subtract(cast).multiply(taxRate);
                         } else {
                             BigDecimal cnt = duration.subtract(x);
                             sum = hourWage.multiply(x).
                                     add(hourWage.multiply(BigDecimal.valueOf(1.5)).
-                                            multiply(cnt)).multiply(taxRate).subtract(cast);
+                                            multiply(cnt)).subtract(cast).multiply(taxRate);
                         }
                     }
                 }
                 break;
             case "salary":          //受雇
                 //固定工资直接获取salary
-                sum = user.getSalary().multiply(months).multiply(taxRate).subtract(cast);
+                sum = user.getSalary().multiply(months).subtract(cast).multiply(taxRate);
                 break;
             case "commission":    //委托
                 BigDecimal commissionRate = user.getCommissionRate();
@@ -130,7 +130,7 @@ public class AdminReportService {
                 //计算佣金
                 payment = payment.multiply(commissionRate);
                 //计算总薪资
-                sum = user.getSalary().multiply(months).add(payment).multiply(taxRate).subtract(cast);
+                sum = user.getSalary().multiply(months).add(payment).subtract(cast).multiply(taxRate);
                 break;
             default:
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);

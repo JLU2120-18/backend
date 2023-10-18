@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 /**
  * 描述：
  */
@@ -35,7 +39,13 @@ public class EmployeeReportController {
         String type = form.getType();
         String startTime = form.getStartTime();
         String endTime = form.getEndTime();
-        if (Integer.parseInt(endTime) - Integer.parseInt(startTime) < 0 || employeeId == null)
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime startDate = LocalDateTime.parse(startTime, formatter);
+        LocalDateTime endDate = LocalDateTime.parse(endTime, formatter);
+        // 计算差值
+        Duration duration = Duration.between(startDate, endDate);
+        long days = duration.toDays();
+        if (days < 0 || employeeId == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         switch (type) {
             case "duration":
