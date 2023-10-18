@@ -13,11 +13,6 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.annotation.Resource;
 import java.util.Date;
 
-/**
- * @author Jialin
- * @create 2023-10-17 15:28
- */
-
 @Service
 public class AuthServiceImpl implements AuthService {
     @Resource

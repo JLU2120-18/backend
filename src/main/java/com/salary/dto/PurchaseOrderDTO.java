@@ -1,6 +1,6 @@
 package com.salary.dto;
 
-import com.salary.pojo.Auth;
+import com.salary.pojo.PurchaseOrder;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthDTO extends Auth {
-    private Boolean remember;
+public class PurchaseOrderDTO extends PurchaseOrder {
     private String jwt;
 }
