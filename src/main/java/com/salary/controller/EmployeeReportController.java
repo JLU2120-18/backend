@@ -1,7 +1,7 @@
 package com.salary.controller;
 
 import com.salary.form.EmployeeReportForm;
-import com.salary.service.EmployeeReportService;
+import com.salary.service.impl.EmployeeReportServiceImpl;
 import com.salary.utils.JwtUtils;
 import com.salary.vo.ReportVO;
 import io.jsonwebtoken.Claims;
@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 public class EmployeeReportController {
 
     @Autowired
-    EmployeeReportService employeeReportService;
+    EmployeeReportServiceImpl employeeReportServiceImpl;
 
     @PostMapping("/create")
     public ReportVO create(@RequestBody EmployeeReportForm form){
@@ -49,14 +49,14 @@ public class EmployeeReportController {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         switch (type) {
             case "duration":
-                return employeeReportService.createDuration(startTime, endTime, employeeId);
+                return employeeReportServiceImpl.createDuration(startTime, endTime, employeeId);
             case "proj_duration":
                 String timeCardId = form.getTimeCardId();
-                return employeeReportService.createProjDuration(timeCardId, startTime, endTime, employeeId);
+                return employeeReportServiceImpl.createProjDuration(timeCardId, startTime, endTime, employeeId);
             case "vacation":
-                return employeeReportService.createSalary(startTime, endTime, employeeId);
+                return employeeReportServiceImpl.createSalary(startTime, endTime, employeeId);
             case "salary":
-                return employeeReportService.createVacation(startTime, endTime, employeeId);
+                return employeeReportServiceImpl.createVacation(startTime, endTime, employeeId);
             default:
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }

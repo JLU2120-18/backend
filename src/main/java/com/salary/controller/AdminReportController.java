@@ -1,7 +1,7 @@
 package com.salary.controller;
 
 import com.salary.form.AdminReportForm;
-import com.salary.service.AdminReportService;
+import com.salary.service.impl.AdminReportServiceImpl;
 import com.salary.utils.JwtUtils;
 import com.salary.vo.ReportVO;
 import io.jsonwebtoken.Claims;
@@ -25,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 public class AdminReportController {
 
     @Autowired
-    AdminReportService adminReportService;
+    AdminReportServiceImpl adminReportServiceImpl;
     @PostMapping("/create")
     public ReportVO create(@RequestBody AdminReportForm form){
         String jwt = form.getJwt();
@@ -46,9 +46,9 @@ public class AdminReportController {
         if (days < 0 || employeeId == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         if (type.equals("duration")){
-            return adminReportService.createDuration(startTime,endTime,employeeId);
+            return adminReportServiceImpl.createDuration(startTime,endTime,employeeId);
         }else if(type.equals("salary")){
-            return adminReportService.createSalary(startTime,endTime,employeeId);
+            return adminReportServiceImpl.createSalary(startTime,endTime,employeeId);
         }else{
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
