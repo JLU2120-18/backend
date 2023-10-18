@@ -76,6 +76,10 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
         String employeeName = userMapper.selectNameById(employeeId);
         if (employeeName == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        String id = timeCardMapper.selectEmployeeIdByTimeCardId(timeCardId);
+//        System.out.println(id);
+        if(!id.equals(employeeId))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         //根据timeCardId查找timeCardProject
         List<TimeCardProject> projects = timeCardMapper.selectProjByTimeCardId(timeCardId);
         //封装数组

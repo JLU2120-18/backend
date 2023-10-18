@@ -16,6 +16,8 @@ public interface TimeCardMapper {
 
     List<TimeCardProject> selectProjByTimeCardId(String timeCardId);
 
+    String selectEmployeeIdByTimeCardId(String timeCard);
+
 //    TimeCard selectFirstById(String employeeId,String startTime,String endTime);
 //    TimeCard selectLastById(String employeeId, String startTime, String endTime);
 

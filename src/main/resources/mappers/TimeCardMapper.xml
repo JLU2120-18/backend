@@ -24,7 +24,12 @@
             <include refid="project"/>
         from time_card_project where id = #{timeCardId} order by project_name;
     </select>
-<!--    <select id="selectFirstById" resultType="com.salary.pojo.TimeCard">-->
+    <select id="selectEmployeeIdByTimeCardId" resultType="java.lang.String">
+        select employee_id
+        from time_card
+        where id = #{timeCard};
+    </select>
+    <!--    <select id="selectFirstById" resultType="com.salary.pojo.TimeCard">-->
 <!--        select-->
 <!--        <include refid="Base_Column_List"/>-->
 <!--        from time_card where employee_id = #{employeeId} and-->
