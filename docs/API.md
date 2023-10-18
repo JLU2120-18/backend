@@ -89,6 +89,29 @@ interface GetResponse extends CreateRequest {
   payment: 'mail' | 'receive' | 'bank';
 }
 
+// GET /employee/gets
+interface GetsRequest {
+  jwt: string;
+  id?: string;
+  pageIndex: number;
+  pageSize: number;
+}
+
+interface GetsResponse {
+  total: number;
+  data: CreateRequest[];
+}
+
+// GET /employee/sug
+interface GetSugRequest {
+  id: string;
+}
+
+// 获取所有以 id 为开头的 employee_id
+interface GetSugResponse {
+  data: string[];
+}
+
 // POST /employee/update
 interface UpdateRequest extends Partial<CreateRequest> { // Partial<T> 代表 T 上的任何 key 都是可选的
   id: string;
@@ -129,6 +152,7 @@ interface GetsRequest {
   jwt: string;
   pageIndex: number;
   pageSize: number;
+  id?: string; // 获取以 id 为前缀的所有 purchaseOrder，此时获取到的 total 是数据库中匹配到的所有结果数量
 }
 
 interface GetsResponse {
