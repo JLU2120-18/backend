@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.salary.dao.TimeCardMapper">
+
+    <sql id="Base_Column_List">
+        id, employee_id, project_name,duration,is_save, start_time, end_time
+    </sql>
+    <sql id="project">
+        id,project_name,duration
+    </sql>
+
+    <select id="selectTimeCardsById" resultType="com.salary.pojo.TimeCard">
+        select
+        <include refid="Base_Column_List"/>
+        from time_card where employee_id = #{employeeId} and
+                            #{startTime} >= start_time and
+                            end_time >= #{endTime} order by start_time;
+    </select>
+    <select id="selectProjByTimeCardId" resultType="com.salary.pojo.TimeCardProject">
+        select
+            <include refid="project"/>
+        from time_card_project where id = #{timeCardId} order by project_name;
+    </select>
+<!--    <select id="selectFirstById" resultType="com.salary.pojo.TimeCard">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from time_card where employee_id = #{employeeId} and-->
+<!--                        #{startTime} >= start_time and-->
+<!--                        end_time >= #{endTime} order by start_time limit 1;-->
+<!--    </select>-->
+<!--    <select id="selectLastById" resultType="com.salary.pojo.TimeCard">-->
+<!--        select-->
+<!--        <include refid="Base_Column_List"/>-->
+<!--        from time_card where employee_id = #{employeeId} and-->
+<!--                        #{startTime} >= start_time and-->
+<!--                        end_time >= #{endTime} order by start_time desc limit 1;-->
+<!--    </select>-->
+</mapper>

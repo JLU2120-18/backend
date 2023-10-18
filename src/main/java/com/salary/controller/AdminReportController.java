@@ -3,7 +3,7 @@ package com.salary.controller;
 import com.salary.form.AdminReportForm;
 import com.salary.service.AdminReportService;
 import com.salary.utils.JwtUtils;
-import com.salary.vo.AdminReportVO;
+import com.salary.vo.ReportVO;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class AdminReportController {
     @Autowired
     AdminReportService adminReportService;
     @PostMapping("/create")
-    public AdminReportVO create(@RequestBody AdminReportForm form){
+    public ReportVO create(@RequestBody AdminReportForm form){
         String jwt = form.getJwt();
         Claims claims = JwtUtils.parseToken(jwt);
         if (!claims.get("role").toString().equals("payroll")){

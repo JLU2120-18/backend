@@ -6,16 +6,16 @@ import lombok.Data;
  * 描述：
  */
 @Data
-public class AdminReportVO<T> {
+public class ReportVO<T> {
 
     private T data;
 
-    public AdminReportVO(T data) {
+    public ReportVO(T data) {
         this.data = data;
     }
 
-    public static <T> AdminReportVO<T> success(T data){
-        return new AdminReportVO<>(data);
+    public static <T> ReportVO<T> success(T data){
+        return new ReportVO<>(data);
     }
 
 //    public static <T> AdminReportVO<T> error(){
