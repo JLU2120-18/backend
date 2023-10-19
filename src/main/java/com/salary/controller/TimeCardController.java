@@ -1,8 +1,8 @@
 package com.salary.controller;
 
+import com.salary.common.Page;
 import com.salary.dao.TimeCardMapper;
 import com.salary.form.TimeCardUpdateForm;
-import com.salary.pojo.Page;
 import com.salary.pojo.TimeCard;
 import com.salary.service.TimeCardService;
 import com.salary.utils.JwtUtils;

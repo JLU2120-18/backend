@@ -1,6 +1,6 @@
 package com.salary.service;
 
-import com.salary.pojo.Page;
+import com.salary.common.Page;
 import com.salary.pojo.TimeCard;
 import com.salary.pojo.TimeCardProjectData;
 

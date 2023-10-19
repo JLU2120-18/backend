@@ -1,8 +1,8 @@
 package com.salary.service.impl;
 
+import com.salary.common.Page;
 import com.salary.dao.TimeCardMapper;
 import com.salary.dao.UserMapper;
-import com.salary.pojo.Page;
 import com.salary.pojo.TimeCard;
 import com.salary.pojo.TimeCardProjectData;
 import com.salary.service.TimeCardService;
