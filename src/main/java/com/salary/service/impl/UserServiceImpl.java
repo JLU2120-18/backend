@@ -209,6 +209,33 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 员工更改发薪方式
+     * @param user
+     */
+    @Override
+    public void updatePayment(UserDTO user) {
+        // 1.获取jwt并解析
+        String jwt = user.getJwt();
+        Claims claims = JwtUtils.parseToken(jwt);
+        String userId = claims.get("id").toString();
+        String role = claims.get("role").toString();
+
+        // 2.判断userId是否合法
+        if(userId == null || userId.length() == 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        // 3.根据id更新员工发薪方式
+        user.setId(userId);
+        int success = userMapper.updatePaymentById(user);
+
+        // 4.更新失败, 抛出异常
+        if(success < 1) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    /**
      * 删除员工
      * @param user
      */

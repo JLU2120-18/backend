@@ -10,5 +10,6 @@ public interface UserService {
     Page<User> getEmployees(String jwt, String id, long pageIndex, long pageSize);
     Page<String> suggestIds(String jwt, String id);
     void updateEmployee(UserDTO user);
+    void updatePayment(UserDTO user);
     void deleteEmployee(UserDTO user);
 }

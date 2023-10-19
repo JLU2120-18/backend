@@ -49,6 +49,13 @@
             <if test="durationLimit != null">
                 duration_limit = #{durationLimit},
             </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updatePaymentById">
+        update user
+        <set>
             <if test="payment != null and payment.length() > 0">
                 payment = #{payment},
             </if>

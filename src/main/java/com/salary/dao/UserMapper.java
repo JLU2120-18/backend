@@ -1,5 +1,6 @@
 package com.salary.dao;
 
+import com.salary.dto.UserDTO;
 import com.salary.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,7 +15,9 @@ public interface UserMapper {
     String selectNameById(String employeeId);
     int deleteUserById(String id);
     int updateUserById(User user);
+    int updatePaymentById(UserDTO user);
     List<String> selectIdsPrefixWithId(String id);
     long countPrefixWithId(String id);
     List<User> pageUserBaseInfoPrefixWithId(String id, long pageBegin, long pageSize);
+
 }
