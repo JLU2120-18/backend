@@ -114,14 +114,21 @@ interface GetSugResponse {
 
 // POST /employee/update
 interface UpdateRequest extends Partial<CreateRequest> { // Partial<T> 代表 T 上的任何 key 都是可选的
-  id: string;
+  jwt: string;
+}
+
+interface UpdateResponse {}
+
+// POST /employee/payment
+interface PaymentRequest {
+  jwt: string;
   payment?: 'mail' | 'receive' | 'bank';
   mailAddress?: string;
   bankName?: string;
   bankAccount?: string;
 }
 
-interface UpdateResponse {}
+interface PaymentResponse {}
 
 // POST /employee/delete
 interface DeleteRequest {
