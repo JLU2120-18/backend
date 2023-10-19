@@ -17,6 +17,9 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * 描述：薪资管理员controller层
+ */
 @RestController
 @RequestMapping("/napi/admin_report")
 public class AdminReportController {

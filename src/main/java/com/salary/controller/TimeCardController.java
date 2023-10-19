@@ -12,6 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+/**
+ * 描述：
+ */
 @RestController
 @RequestMapping("/napi/timecard")
 public class TimeCardController {

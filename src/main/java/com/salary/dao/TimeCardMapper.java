@@ -8,6 +8,9 @@ import org.apache.ibatis.annotations.Mapper;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * 描述：
+ */
 @Mapper
 public interface TimeCardMapper {
 
@@ -19,7 +22,7 @@ public interface TimeCardMapper {
 
     Long selectSumById(String employeeId);
 
-    List<TimeCard> selectPageTimeCardById(String employeeId,Long offset,Long pageSize);
+    List<TimeCard> selectPageTimeCardById(String employeeId);
 
     List<TimeCard> selectAvailableTimeCardById(String employeeId);
 

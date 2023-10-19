@@ -18,6 +18,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.List;
 
+/**
+ * 描述：
+ */
 @Service
 public class TimeCardServiceImpl implements TimeCardService {
 
@@ -59,9 +62,8 @@ public class TimeCardServiceImpl implements TimeCardService {
         current = Math.min(current,pageIndex);
         //查询该页数据
         long offset = (pageIndex - 1) * pageSize;
-        List<TimeCard> timeCards = timeCardMapper.selectPageTimeCardById(
-                employeeId,offset,current);
-
+        List<TimeCard> timeCards = timeCardMapper.selectPageTimeCardById(employeeId);
+        System.out.println(employeeId+" "+timeCards.size()+" "+offset);
         return new Page<>(timeCards,total,pageSize,current);
 
     }
