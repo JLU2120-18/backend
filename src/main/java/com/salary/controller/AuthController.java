@@ -19,6 +19,8 @@ public class AuthController {
 
     @PostMapping("/login")
     public AuthDTO login(@RequestBody AuthDTO authDTO) {
+        Boolean remember = authDTO.getRemember();
+        authDTO.setRemember((remember == null) ? Boolean.FALSE : remember);
         return authService.login(authDTO);
     }
 }
