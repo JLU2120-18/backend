@@ -2,7 +2,6 @@ package com.salary.controller;
 
 import com.salary.common.Page;
 import com.salary.dto.PurchaseOrderDTO;
-import com.salary.pojo.PurchaseOrder;
 import com.salary.service.PurchaseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

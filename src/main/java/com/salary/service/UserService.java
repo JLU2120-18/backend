@@ -2,14 +2,7 @@ package com.salary.service;
 
 import com.salary.common.Page;
 import com.salary.dto.UserDTO;
-import com.salary.pojo.User;
 
-import java.util.List;
-
-/**
- * @author Jialin
- * @create 2023-10-16 13:07
- */
 public interface UserService {
     User createEmployee(UserDTO user);
     User getEmployee(String jwt, String id);

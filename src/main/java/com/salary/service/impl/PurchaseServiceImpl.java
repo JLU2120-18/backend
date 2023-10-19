@@ -4,7 +4,6 @@ import com.salary.common.Page;
 import com.salary.dao.AuthMapper;
 import com.salary.dao.PurchaseMapper;
 import com.salary.dto.PurchaseOrderDTO;
-import com.salary.pojo.PurchaseOrder;
 import com.salary.service.PurchaseService;
 import com.salary.utils.JwtUtils;
 import io.jsonwebtoken.Claims;

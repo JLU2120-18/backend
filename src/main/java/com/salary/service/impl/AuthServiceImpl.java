@@ -2,7 +2,6 @@ package com.salary.service.impl;
 
 import com.salary.dao.AuthMapper;
 import com.salary.dto.AuthDTO;
-import com.salary.pojo.Auth;
 import com.salary.service.AuthService;
 import com.salary.utils.JwtUtils;
 import org.springframework.http.HttpStatus;
