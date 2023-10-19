@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService {
 
         // 2.如果id为空, 则说明当前查询为员工自己信息
         if(id == null || id.length() == 0) {
-            user = userMapper.selectUserBaseInfoAndPaymentById(userId);
+            user = userMapper.selectUserById(userId);
             return user;
         }
 
