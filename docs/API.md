@@ -89,6 +89,9 @@ interface GetRequest {
 interface GetResponse extends CreateRequest {
   id: string;
   payment: 'mail' | 'receive' | 'bank';
+  mailAddress?: string;
+  bankName?: string;
+  bankAccount?: string;
 }
 
 // GET /employee/gets
