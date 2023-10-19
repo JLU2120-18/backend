@@ -32,7 +32,7 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/get")
-    public User get(@RequestParam("jwt") String jwt, @RequestParam(value = "id", defaultValue = "") String id) {
+    public User get(@RequestParam("jwt") String jwt, @RequestParam(value = "id", required = false) String id) {
         return userService.getEmployee(jwt, id);
     }
 
@@ -45,7 +45,7 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/gets")
-    public Page<User> gets(@RequestParam("jwt") String jwt, @RequestParam(value = "id", defaultValue = "") String id, @RequestParam("pageIndex") long pageIndex, @RequestParam("pageSize") long pageSize) {
+    public Page<User> gets(@RequestParam("jwt") String jwt, @RequestParam(value = "id", required = false) String id, @RequestParam("pageIndex") long pageIndex, @RequestParam("pageSize") long pageSize) {
         return userService.getEmployees(jwt, id, pageIndex, pageSize);
     }
 
