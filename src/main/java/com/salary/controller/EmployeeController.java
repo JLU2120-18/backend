@@ -69,6 +69,15 @@ public class EmployeeController {
     }
 
     /**
+     * 员工更新发薪方式
+     * @param user
+     */
+    @PostMapping("/payment")
+    public void employeeUpdate(@RequestBody UserDTO user) {
+        userService.updatePayment(user);
+    }
+
+    /**
      * 删除员工
      * @param user
      */
