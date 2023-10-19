@@ -2,7 +2,6 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="com.salary.dao.TimeCardMapper">
 
     <sql id="Base_Column_List">
@@ -62,12 +61,12 @@
             <include refid="Base_Column_List"/>
             from time_card where employee_id = #{employeeId}
             order by start_time
-            limit #{pageSize} offset #{offset} ;
+            limit #{pageSize} offset #{offset};
     </select>
     <select id="selectAvailableTimeCardById" resultType="com.salary.pojo.TimeCard">
         select
         <include refid="Base_Column_List"/>
-        from time_card where employee_id = #{employeeId} and is_save = false
+        from time_card where employee_id = #{employeeId} and is_save = true
         order by start_time;
     </select>
     <select id="selectCntById" resultType="java.lang.Integer">

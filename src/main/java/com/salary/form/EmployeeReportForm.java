@@ -2,6 +2,9 @@ package com.salary.form;
 
 import lombok.Data;
 
+/**
+ * 描述：
+ */
 @Data
 public class EmployeeReportForm {
     private String type;

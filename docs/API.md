@@ -210,7 +210,7 @@ interface GetResponse {
 }
 
 // GET /timecard/available
-// 获取可以使用的考勤卡：isSave=false
+// 获取可以使用的考勤卡：isSave=true
 interface GetAvailableRequest {
   jwt: string;
 }
