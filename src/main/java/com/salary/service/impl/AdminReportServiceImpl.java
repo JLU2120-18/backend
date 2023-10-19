@@ -20,6 +20,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * 描述：薪资管理员service层
+ */
 @Service
 public class AdminReportServiceImpl implements AdminReportService {
 
