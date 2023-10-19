@@ -4,13 +4,16 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * 描述：
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VacationReport {
+public class VacationReport implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String employeeId;
     private String employeeName;
     private String startTime;

@@ -61,6 +61,7 @@ interface Response {
 ```typescript
 // POST /employee/create
 interface CreateRequest {
+  jwt: string;
   type: 'salary' | 'commission' | 'wage'; // 月薪 ｜ 佣金 ｜ 时薪
   id: string; // 员工名字的拼音，后端自动检测拼音是否重复，如有重复要自动加上数字
   username: string; // 员工名字
@@ -104,6 +105,7 @@ interface GetsResponse {
 
 // GET /employee/sug
 interface GetSugRequest {
+  jwt: string;
   id: string;
 }
 
@@ -114,6 +116,7 @@ interface GetSugResponse {
 
 // POST /employee/update
 interface UpdateRequest extends Partial<CreateRequest> { // Partial<T> 代表 T 上的任何 key 都是可选的
+  jwt: string;
   id: string;
   payment?: 'mail' | 'receive' | 'bank';
   mailAddress?: string;
@@ -125,6 +128,7 @@ interface UpdateResponse {}
 
 // POST /employee/delete
 interface DeleteRequest {
+  jwt: string;
   id: string;
 }
 

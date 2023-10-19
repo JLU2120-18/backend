@@ -5,10 +5,10 @@
 <mapper namespace="com.salary.dao.TimeCardMapper">
 
     <sql id="Base_Column_List">
-        id, employee_id, duration,is_save, start_time, end_time
+        id, employee_id, duration, is_save, start_time, end_time
     </sql>
     <sql id="project">
-        id,project_name,duration
+        id, project_name, duration
     </sql>
     <insert id="insertTimeCardProject">
         insert into time_card_project (<include refid="project"/>)
