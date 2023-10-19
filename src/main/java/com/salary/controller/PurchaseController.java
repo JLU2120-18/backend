@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/purchase")
+@RequestMapping("/napi/purchase")
 public class PurchaseController {
     @Resource
     private PurchaseService purchaseService;

@@ -12,7 +12,7 @@ import javax.annotation.Resource;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/napi/auth")
 public class AuthController {
     @Resource
     private AuthService authService;

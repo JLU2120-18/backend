@@ -1,11 +1,11 @@
 package com.salary.controller;
 
 import com.salary.common.Page;
+import com.salary.dto.UserDTO;
 import com.salary.pojo.User;
 import com.salary.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 
 /**
@@ -15,7 +15,7 @@ import javax.annotation.Resource;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/employee")
+@RequestMapping("/napi/employee")
 public class EmployeeController {
     @Resource
     private UserService userService;
@@ -26,7 +26,7 @@ public class EmployeeController {
      * @return
      */
     @PostMapping("/create")
-    public User create(@RequestBody User user) {
+    public User create(@RequestBody UserDTO user) {
         return userService.createEmployee(user);
     }
 
@@ -60,8 +60,8 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/sug")
-    public Page<String> suggest(@RequestParam("id") String id) {
-        return userService.suggestIds(id);
+    public Page<String> suggest(@RequestParam("jwt") String jwt, @RequestParam("id") String id) {
+        return userService.suggestIds(jwt, id);
     }
 
     /**
@@ -69,7 +69,7 @@ public class EmployeeController {
      * @param user
      */
     @PostMapping("/update")
-    public void update(@RequestBody User user) {
+    public void update(@RequestBody UserDTO user) {
         userService.updateEmployee(user);
     }
 
@@ -78,7 +78,7 @@ public class EmployeeController {
      * @param user
      */
     @PostMapping("/delete")
-    public void delete(@RequestBody User user) {
+    public void delete(@RequestBody UserDTO user) {
         userService.deleteEmployee(user);
     }
 }

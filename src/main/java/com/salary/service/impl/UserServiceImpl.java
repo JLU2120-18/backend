@@ -2,6 +2,7 @@ package com.salary.service.impl;
 
 import com.salary.dao.AuthMapper;
 import com.salary.dao.UserMapper;
+import com.salary.dto.UserDTO;
 import com.salary.pojo.Auth;
 import com.salary.common.Page;
 import com.salary.pojo.User;
@@ -23,33 +24,65 @@ public class UserServiceImpl implements UserService {
     private AuthMapper authMapper;
 
     /**
+     * 判断是否有权限访问
+     *
+     * @param jwt
+     * @return
+     */
+    private String hasPermissionToAccess(String jwt, String role) {
+        // 1.解析jwt
+        Claims claims = JwtUtils.parseToken(jwt);
+        String userId = claims.get("id").toString();
+        String userRole = claims.get("role").toString();
+
+        // 2.判断当前操作用户权限是否为role
+        if (userRole == null || !userRole.equals(role)) {
+            return null;
+        }
+
+        // 3.查询数据库中的role和传过来的role是否一致
+        String selectedRole = authMapper.selectRoleById(userId);
+        if (selectedRole == null || !selectedRole.equals(userRole)) {
+            return null;
+        }
+
+        return userId;
+    }
+
+    /**
      * 添加员工
      * @param user
      * @return
      */
     @Override
-    public User createEmployee(User user) {
-        // 1.获取员工originId
+    public User createEmployee(UserDTO user) {
+        // 1.获取jwt并解析, 判断是否有权限
+        String jwt = user.getJwt();
+        if(hasPermissionToAccess(jwt, "payroll") == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        // 2.获取员工originId
         String userId = user.getId();
 
-        // 2.根据userId查员工
+        // 3.根据userId查员工
         User selectedUser = userMapper.selectUserById(userId);
 
-        // 3.定义count用来解决用户重名
+        // 4.定义count用来解决用户重名
         long count = 0;
         while(selectedUser != null) {
             count++;
             selectedUser = userMapper.selectUserById(userId + count);
         }
 
-        // 4.当前userId + count不重名
+        // 5.当前userId + count不重名
         if(count > 0) {
             userId += count;
         }
         user.setId(userId);
         Auth auth = new Auth(userId, user.getUsername(), DigestUtils.md5DigestAsHex(user.getPhone().getBytes()), "employee");
 
-        // 5.数据库插入user和auth
+        // 6.数据库插入user和auth
         int success = userMapper.insert(user);
         success += authMapper.insert(auth);
 
@@ -98,15 +131,70 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
+     * 查询以id为前缀的员工信息分页
+     * @param jwt
+     * @param id
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public Page<User> getEmployees(String jwt, String id, long pageIndex, long pageSize) {
+        // 1.判断是否有权限
+        if(hasPermissionToAccess(jwt, "payroll") == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        // 2.分页查询以id为前缀的员工信息
+        pageIndex = (pageIndex > 0) ? pageIndex : 1L;
+        pageSize = (pageSize > 0) ? pageSize : 10L;
+        Page<User> page = new Page<>();
+        long total = userMapper.countPrefixWithId(id);
+        long pageEnd = (total % pageSize == 0) ? (total / pageSize) : (total / pageSize + 1);
+        pageIndex = Math.min(pageIndex, pageEnd);
+        page.setData(userMapper.pageUserBaseInfoPrefixWithId(id, (pageIndex - 1) * pageSize, pageSize));
+        page.setTotal(total);
+        page.setCurrent(pageIndex);
+        page.setSize(pageSize);
+        return page;
+    }
+
+    /**
+     * 查询以id为前缀的所有员工id
+     * @param id
+     * @return
+     */
+    @Override
+    public Page<String> suggestIds(String jwt, String id) {
+        // 1.判断是否有权限
+        if(hasPermissionToAccess(jwt, "payroll") == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        // 2.判断id是否合法
+        if(id == null || id.length() == 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        Page<String> page = new Page<>();
+        page.setData(userMapper.selectIdsPrefixWithId(id));
+        return page;
+    }
+
+    /**
      * 更新员工信息
      * @param user
      */
     @Override
-    public void updateEmployee(User user) {
-        // 1.获取员工id
-        String id = user.getId();
+    public void updateEmployee(UserDTO user) {
+        // 1.获取jwt并解析, 判断是否有权限
+        String jwt = user.getJwt();
+        if(hasPermissionToAccess(jwt, "payroll") == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
 
-        // 2.判断id是否合法
+        // 2.获取员工id, 判断id是否合法
+        String id = user.getId();
         if(id == null || id.length() == 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -125,11 +213,15 @@ public class UserServiceImpl implements UserService {
      * @param user
      */
     @Override
-    public void deleteEmployee(User user) {
-        // 1.获取员工id
-        String id = user.getId();
+    public void deleteEmployee(UserDTO user) {
+        // 1.获取jwt并解析, 判断是否有权限
+        String jwt = user.getJwt();
+        if(hasPermissionToAccess(jwt, "payroll") == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
 
-        // 2.判断id是否合法
+        // 2.获取员工id, 判断id是否合法
+        String id = user.getId();
         if(id == null || id.length() == 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -142,57 +234,5 @@ public class UserServiceImpl implements UserService {
         if(success < 2) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
-    }
-
-    /**
-     * 查询以id为前缀的员工信息分页
-     * @param jwt
-     * @param id
-     * @param pageIndex
-     * @param pageSize
-     * @return
-     */
-    @Override
-    public Page<User> getEmployees(String jwt, String id, long pageIndex, long pageSize) {
-        // 1.解析jwt
-        Claims claims = JwtUtils.parseToken(jwt);
-        String userId = claims.get("id").toString();
-        String role = claims.get("role").toString();
-
-        // 2.判断当前操作用户是否为payroll
-        if(role == null || !"payroll".equals(role)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-
-        // 3.判断当前操作用户在数据库中的role是否与传进来的role一致
-        String selectedRole = authMapper.selectRoleById(userId);
-        if(selectedRole == null || !selectedRole.equals(role)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-
-        // 4.分页查询以id为前缀的员工信息
-        Page<User> page = new Page<>();
-        page.setData(userMapper.pageUserBaseInfoPrefixWithId(id, (pageIndex - 1) * pageSize, pageSize));
-        page.setTotal(userMapper.countPrefixWithId(id));
-        page.setCurrent(pageIndex);
-        page.setSize(pageSize);
-        return page;
-    }
-
-    /**
-     * 查询以id为前缀的所有员工id
-     * @param id
-     * @return
-     */
-    @Override
-    public Page<String> suggestIds(String id) {
-        // 判断id是否合法
-        if(id == null || id.length() == 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-
-        Page<String> page = new Page<>();
-        page.setData(userMapper.selectIdsPrefixWithId(id));
-        return page;
     }
 }
