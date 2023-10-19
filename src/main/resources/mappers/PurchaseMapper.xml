@@ -9,10 +9,6 @@
         <result column="pay" jdbcType="DECIMAL" property="pay"/>
     </resultMap>
 
-    <sql id="Base_Information_Column">
-        id, phone, address, product_name, date, pay
-    </sql>
-
     <insert id="insert">
         insert into purchase_order (id, employee_id, product_name, pay, phone, address, date)
         values (#{id}, #{employeeId}, #{productName}, #{pay}, #{phone}, #{address}, #{date})
@@ -53,7 +49,7 @@
     </select>
 
     <select id="pagePurchaseOrderPrefixWithId" resultType="com.salary.pojo.PurchaseOrder">
-        select <include refid="Base_Information_Column" />
+        select *
         from purchase_order
         <where>
             <if test="id != null and id.length() > 0">
@@ -74,7 +70,7 @@
     </select>
 
     <select id="selectPurchaseOrderById" resultType="com.salary.pojo.PurchaseOrder">
-        select <include refid="Base_Information_Column" />
+        select *
         from purchase_order
         where id = #{id}
     </select>
