@@ -121,14 +121,20 @@ interface GetSugResponse {
 // POST /employee/update
 interface UpdateRequest extends Partial<CreateRequest> { // Partial<T> 代表 T 上的任何 key 都是可选的
   jwt: string;
-  id: string;
+}
+
+interface UpdateResponse {}
+
+// POST /employee/payment
+interface PaymentRequest {
+  jwt: string;
   payment?: 'mail' | 'receive' | 'bank';
   mailAddress?: string;
   bankName?: string;
   bankAccount?: string;
 }
 
-interface UpdateResponse {}
+interface PaymentResponse {}
 
 // POST /employee/delete
 interface DeleteRequest {
@@ -206,7 +212,12 @@ interface GetRequest {
 
 interface GetResponse {
   total: number; // 用户所持有的考勤卡的总数
-  data: Timecard[]; // 用户所持有的考勤卡的分页数据
+  data: (Timecard & {
+    data: {
+      projectName: string;
+      duration: number;
+    }
+  })[]; // 用户所持有的考勤卡的分页数据
 }
 
 // GET /timecard/available
