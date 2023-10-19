@@ -62,8 +62,8 @@ public class TimeCardServiceImpl implements TimeCardService {
         current = Math.min(current,pageIndex);
         //查询该页数据
         long offset = (pageIndex - 1) * pageSize;
-        List<TimeCard> timeCards = timeCardMapper.selectPageTimeCardById(employeeId);
-        System.out.println(employeeId+" "+timeCards.size()+" "+offset);
+        List<TimeCard> timeCards = timeCardMapper.selectPageTimeCardById(
+                employeeId,offset,pageSize);
         return new Page<>(timeCards,total,pageSize,current);
 
     }

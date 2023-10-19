@@ -22,7 +22,7 @@ public interface TimeCardMapper {
 
     Long selectSumById(String employeeId);
 
-    List<TimeCard> selectPageTimeCardById(String employeeId);
+    List<TimeCard> selectPageTimeCardById(String employeeId,Long offset,Long pageSize);
 
     List<TimeCard> selectAvailableTimeCardById(String employeeId);
 
