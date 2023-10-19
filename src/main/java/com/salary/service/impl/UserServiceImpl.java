@@ -255,11 +255,17 @@ public class UserServiceImpl implements UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
-        // 3.根据id删除对应员工
+        // 3.查询待删除员工role是否为payroll
+        String role = authMapper.selectRoleById(id);
+        if("payroll".equals(role)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
+
+        // 4.根据id删除对应员工
         int success = authMapper.deleteAuthById(id);
         success += userMapper.deleteUserById(id);
 
-        // 4.删除失败, 抛出异常
+        // 5.删除失败, 抛出异常
         if(success < 2) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
