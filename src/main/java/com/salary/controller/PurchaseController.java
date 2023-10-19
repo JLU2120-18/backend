@@ -35,7 +35,7 @@ public class PurchaseController {
      * @return
      */
     @GetMapping("/gets")
-    public Page<PurchaseOrder> gets(@RequestParam("jwt") String jwt, @RequestParam("id") String id, @RequestParam("pageIndex") long pageIndex, @RequestParam("pageSize") long pageSize) {
+    public Page<PurchaseOrder> gets(@RequestParam("jwt") String jwt, @RequestParam(value = "id", defaultValue = "") String id, @RequestParam("pageIndex") long pageIndex, @RequestParam("pageSize") long pageSize) {
         return purchaseService.getPurchaseOrders(jwt, id, pageIndex, pageSize);
     }
 
