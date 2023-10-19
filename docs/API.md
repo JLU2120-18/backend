@@ -198,7 +198,12 @@ interface GetRequest {
 
 interface GetResponse {
   total: number; // 用户所持有的考勤卡的总数
-  data: Timecard[]; // 用户所持有的考勤卡的分页数据
+  data: (Timecard & {
+    data: {
+      projectName: string;
+      duration: number;
+    }
+  })[]; // 用户所持有的考勤卡的分页数据
 }
 
 // GET /timecard/available
