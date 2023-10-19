@@ -1,7 +1,7 @@
 package com.salary.controller;
 
 import com.salary.form.EmployeeReportForm;
-import com.salary.service.impl.EmployeeReportServiceImpl;
+import com.salary.service.EmployeeReportService;
 import com.salary.utils.JwtUtils;
 import com.salary.vo.ReportVO;
 import io.jsonwebtoken.Claims;
@@ -21,11 +21,11 @@ import java.time.format.DateTimeFormatter;
  * 描述：
  */
 @RestController
-@RequestMapping("/api/employee_report")
+@RequestMapping("/napi/employee_report")
 public class EmployeeReportController {
 
     @Autowired
-    EmployeeReportServiceImpl employeeReportServiceImpl;
+    EmployeeReportService employeeReportServiceImpl;
 
     @PostMapping("/create")
     public ReportVO create(@RequestBody EmployeeReportForm form){

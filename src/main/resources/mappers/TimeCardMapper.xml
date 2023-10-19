@@ -10,8 +10,32 @@
     <sql id="project">
         id,project_name,duration
     </sql>
+    <insert id="insertTimeCardProject">
+        insert into time_card_project (<include refid="project"/>)
+        values
+        <foreach collection="data" item="item" separator=",">
+            (#{id},#{item.projectName},#{item.duration})
+        </foreach>
+    </insert>
+    <insert id="insertTimeCard" >
+        insert into time_card (<include refid="Base_Column_List"/>)
+        values
+        (#{id},#{employeeId},#{duration},#{isSave},#{startTime},#{endTime});
+    </insert>
+    <update id="updateTimeCard">
+        UPDATE time_card
+        <set>
+            <if test="duration != null">
+                duration = #{duration},
+            </if>
+            <if test="isSave != null">
+                is_Save = #{isSave},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
 
-    <select id="selectTimeCardsById" resultType="com.salary.pojo.TimeCard">
+    <select id="selectTimeCardsByEmployeeId" resultType="com.salary.pojo.TimeCard">
         select
         <include refid="Base_Column_List"/>
         from time_card where employee_id = #{employeeId}
@@ -29,6 +53,29 @@
         from time_card
         where id = #{timeCard};
     </select>
+    <select id="selectSumById" resultType="java.lang.Long">
+        select count(id) from time_card where employee_id = #{employeeId};
+    </select>
+    <select id="selectPageTimeCardById" resultType="com.salary.pojo.TimeCard">
+        select 
+            <include refid="Base_Column_List"/>
+            from time_card where employee_id = #{employeeId}
+            order by start_time
+            limit #{pageSize} offset #{offset} ;
+    </select>
+    <select id="selectAvailableTimeCardById" resultType="com.salary.pojo.TimeCard">
+        select
+        <include refid="Base_Column_List"/>
+        from time_card where employee_id = #{employeeId} and is_save = false
+        order by start_time;
+    </select>
+    <select id="selectCntById" resultType="java.lang.Integer">
+        select count(id) from time_card where id = #{id};
+    </select>
+    <select id="selectTimeCardsById" resultType="com.salary.pojo.TimeCard">
+        select <include refid="Base_Column_List"/>
+        from time_card where id = #{id};
+    </select>
     <!--    <select id="selectFirstById" resultType="com.salary.pojo.TimeCard">-->
 <!--        select-->
 <!--        <include refid="Base_Column_List"/>-->
@@ -36,11 +83,9 @@
 <!--                        #{startTime} >= start_time and-->
 <!--                        end_time >= #{endTime} order by start_time limit 1;-->
 <!--    </select>-->
-<!--    <select id="selectLastById" resultType="com.salary.pojo.TimeCard">-->
-<!--        select-->
-<!--        <include refid="Base_Column_List"/>-->
-<!--        from time_card where employee_id = #{employeeId} and-->
-<!--                        #{startTime} >= start_time and-->
-<!--                        end_time >= #{endTime} order by start_time desc limit 1;-->
-<!--    </select>-->
+    <select id="selectLast" resultType="com.salary.pojo.TimeCard">
+        select
+        <include refid="Base_Column_List"/>
+        from time_card order by start_time desc limit 1;
+    </select>
 </mapper>

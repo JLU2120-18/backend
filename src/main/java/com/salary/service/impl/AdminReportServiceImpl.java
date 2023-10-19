@@ -39,6 +39,7 @@ public class AdminReportServiceImpl implements AdminReportService {
     /*
     * 创建指定时间内总工作时数报告
     * */
+    @Override
     public ReportVO<EmployeeDurationReport[]> createDuration(String startTime, String endTime, String employeeId) {
         //传入id为null，创建全部，否则指定
 //        if (employeeId == null){
@@ -46,7 +47,7 @@ public class AdminReportServiceImpl implements AdminReportService {
 //            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 //        }else{
             //查询时间内考勤卡，计算总时长
-            List<TimeCard> timecards = timeCardMapper.selectTimeCardsById(employeeId,startTime,endTime);
+            List<TimeCard> timecards = timeCardMapper.selectTimeCardsByEmployeeId(employeeId,startTime,endTime);
             BigDecimal duration = new BigDecimal(0);
             for(TimeCard timecard : timecards){
                 duration = duration.add(timecard.getDuration());
@@ -69,6 +70,7 @@ public class AdminReportServiceImpl implements AdminReportService {
     /*
     * 创建年度至今薪资报告
     * */
+    @Override
     public ReportVO<EmployeeSalaryReport[]> createSalary(String startTime, String endTime, String employeeId) {
         //获取User
         User user = userMapper.selectUserById(employeeId);
@@ -78,7 +80,7 @@ public class AdminReportServiceImpl implements AdminReportService {
         String name = user.getUsername();
         //根据员工类型计算salary
         String type = user.getType();
-        BigDecimal sum = new BigDecimal(0);
+        BigDecimal sum;
         //计算除去税收百分比
         BigDecimal taxRate = BigDecimal.valueOf(1).subtract(user.getTaxRate());
         //其他减免
@@ -103,7 +105,7 @@ public class AdminReportServiceImpl implements AdminReportService {
                 BigDecimal durationLimit = BigDecimal.valueOf(user.getDurationLimit());
                 //基础工时
                 BigDecimal baseuration = BigDecimal.valueOf(40);
-                List<TimeCard> timecards = timeCardMapper.selectTimeCardsById(employeeId,start,d);
+                List<TimeCard> timecards = timeCardMapper.selectTimeCardsByEmployeeId(employeeId,start,d);
                 for (TimeCard timecard : timecards) {
                     duration = duration.add(timecard.getDuration());
                 }

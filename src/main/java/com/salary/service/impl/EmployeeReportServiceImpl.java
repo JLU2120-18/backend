@@ -41,6 +41,7 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
     /*
     * 创建总工作时数报告
     * */
+    @Override
     public ReportVO<DurationReport[]> createDuration(String startTime, String endTime, String employeeId) {
         //传入id为null，创建全部，否则指定
 //        if (employeeId == null){
@@ -48,7 +49,7 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
 //            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 //        }else{
             //查询考勤卡，计算总时长
-            List<TimeCard> timecards = timeCardMapper.selectTimeCardsById(employeeId,startTime,endTime);
+            List<TimeCard> timecards = timeCardMapper.selectTimeCardsByEmployeeId(employeeId,startTime,endTime);
             BigDecimal duration = new BigDecimal(0);
             for(TimeCard timecard : timecards){
                 duration = duration.add(timecard.getDuration());
@@ -71,6 +72,7 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
     /**
      *创建项目总工作时数报告
      */
+    @Override
     public ReportVO<ProjectDurationReport[]> createProjDuration(String timeCardId,String startTime,String endTime,String employeeId){
         //根据id查找用户名
         String employeeName = userMapper.selectNameById(employeeId);
@@ -80,6 +82,7 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
 //        System.out.println(id);
         if(!id.equals(employeeId))
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+
         //根据timeCardId查找timeCardProject
         List<TimeCardProject> projects = timeCardMapper.selectProjByTimeCardId(timeCardId);
         //封装数组
@@ -107,9 +110,10 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
     /*
     * 创建假期/病假报告
     * */
+    @Override
     public ReportVO<VacationReport[]> createVacation(String startTime, String endTime, String employeeId){
         //根据用户id查询考勤卡
-        List<TimeCard> timeCards =timeCardMapper.selectTimeCardsById(employeeId,startTime,endTime);
+        List<TimeCard> timeCards =timeCardMapper.selectTimeCardsByEmployeeId(employeeId,startTime,endTime);
 
         //计算请假天数
         int days = DateUtils.getDays(timeCards,startTime,endTime);
@@ -132,6 +136,7 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
     /*
     * 创建总工资报告
     * */
+    @Override
     public ReportVO<SalaryReport[]> createSalary(String startTime, String endTime, String employeeId) {
         //获取User
         User user = userMapper.selectUserById(employeeId);
@@ -166,7 +171,7 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
                 BigDecimal durationLimit = BigDecimal.valueOf(user.getDurationLimit());
                 //基础工时
                 BigDecimal baseuration = BigDecimal.valueOf(40);
-                List<TimeCard> timecards = timeCardMapper.selectTimeCardsById(employeeId,start,d);
+                List<TimeCard> timecards = timeCardMapper.selectTimeCardsByEmployeeId(employeeId,start,d);
                 for (TimeCard timecard : timecards) {
                      duration = duration.add(timecard.getDuration());
                 }

@@ -1,7 +1,7 @@
 package com.salary.controller;
 
 import com.salary.form.AdminReportForm;
-import com.salary.service.impl.AdminReportServiceImpl;
+import com.salary.service.AdminReportService;
 import com.salary.utils.JwtUtils;
 import com.salary.vo.ReportVO;
 import io.jsonwebtoken.Claims;
@@ -21,11 +21,11 @@ import java.time.format.DateTimeFormatter;
  * 描述：薪资管理员controller层
  */
 @RestController
-@RequestMapping("/api/admin_report")
+@RequestMapping("/napi/admin_report")
 public class AdminReportController {
 
     @Autowired
-    AdminReportServiceImpl adminReportServiceImpl;
+    AdminReportService adminReportServiceImpl;
     @PostMapping("/create")
     public ReportVO create(@RequestBody AdminReportForm form){
         String jwt = form.getJwt();
