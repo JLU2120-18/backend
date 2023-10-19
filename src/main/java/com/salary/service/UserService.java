@@ -2,6 +2,7 @@ package com.salary.service;
 
 import com.salary.common.Page;
 import com.salary.dto.UserDTO;
+import com.salary.pojo.User;
 
 public interface UserService {
     User createEmployee(UserDTO user);

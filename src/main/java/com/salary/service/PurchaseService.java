@@ -1,6 +1,8 @@
 package com.salary.service;
 
+import com.salary.common.Page;
 import com.salary.dto.PurchaseOrderDTO;
+import com.salary.pojo.PurchaseOrder;
 
 public interface PurchaseService {
     PurchaseOrder createPurchaseOrder(PurchaseOrderDTO purchaseOrder);
