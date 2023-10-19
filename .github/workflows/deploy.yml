@@ -17,6 +17,11 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          
+      - name: Run maven script
+        uses: guillonapa/action-maven-cli/jdk8@master
+        with:
+          lifecycle: 'clean package test'
 
       - name: Upload files via SCP
         run: |
