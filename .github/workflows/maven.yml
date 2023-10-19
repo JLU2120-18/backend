@@ -27,3 +27,6 @@ jobs:
       uses: guillonapa/action-maven-cli/jdk8@master
       with:
         lifecycle: 'clean package test'
+
+    - name: Check Files
+      run: 'ls -a'
