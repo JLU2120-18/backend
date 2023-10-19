@@ -1,12 +1,16 @@
 server:
   port: 8080
 
+jwt:
+  secretKey: ProphetSalary
+
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
+    password: 123456
     url: jdbc:mysql://localhost:3306/prophet_salary?characterEncoding=utf-8&useSSL=false&&serverTimezone=UTC
+
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
@@ -18,3 +22,5 @@ mybatis:
 logging:
   pattern:
     console: "[%thread] %-5level %logger{36} - %msg%n"
+  level:
+    com.salary.dao: debug

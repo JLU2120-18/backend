@@ -1,17 +1,21 @@
 package com.salary.utils;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 
 @Component
 public class JwtUtils {
-    @Value("${jwt.secret}") // 从配置文件中获取密钥
     private static String secretKey;
+
+    @Value("${jwt.secretKey}") // 从配置文件中获取密钥
+    public void setSecretKey(String secretKey) {
+        JwtUtils.secretKey = secretKey;
+    }
 
     // 创建 JWT
     public static String createToken(String id, String role) {
@@ -23,11 +27,25 @@ public class JwtUtils {
                 .compact();
     }
 
+    // 创建 JWT
+    public static String createToken(String id, String role, Date expiration) {
+        return Jwts.builder().setSubject("JWTToken") // 设置主题(Subject)
+                .setExpiration(expiration)
+                .claim("id", id).claim("role", role)
+                .signWith(SignatureAlgorithm.HS256, secretKey) // 使用指定的算法和密钥签名
+                .compact();
+    }
+
     // 解析 JWT
     public static Claims parseToken(String jwt) {
-        return Jwts.parser()
-                .setSigningKey(secretKey)
-                .parseClaimsJws(jwt)
-                .getBody();
+        try {
+            return Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(jwt)
+                    .getBody();
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        }
     }
+
 }

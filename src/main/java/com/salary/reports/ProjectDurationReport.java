@@ -1,28 +1,26 @@
 package com.salary.reports;
 
+import com.salary.pojo.TimeCardProjectData;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 描述：
  */
 @Data
-public class ProjectDurationReport {
+@NoArgsConstructor
+@AllArgsConstructor
+public class ProjectDurationReport implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String employeeId;
     private String employeeName;
     private String startTime;
     private String endTime;
-    private String projectName;
-    private Integer duration;
+    private TimeCardProjectData[] data;
 
-    public ProjectDurationReport() {
-    }
-
-    public ProjectDurationReport(String employeeId, String employeeName, String startTime, String endTime, String projectName, Integer duration) {
-        this.employeeId = employeeId;
-        this.employeeName = employeeName;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.projectName = projectName;
-        this.duration = duration;
-    }
 }
+

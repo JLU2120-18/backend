@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.salary.dao.PurchaseMapper">
+    <resultMap id="BaseResultMap" type="com.salary.pojo.PurchaseOrder">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="pay" jdbcType="DECIMAL" property="pay"/>
+    </resultMap>
+
+    <sql id="Base_Information_Column">
+        id, phone, address, product_name, date, pay
+    </sql>
+
+    <insert id="insert">
+        insert into purchase_order (id, employee_id, product_name, pay, phone, address, date)
+        values (#{id}, #{employeeId}, #{productName}, #{pay}, #{phone}, #{address}, #{date})
+    </insert>
+
+    <update id="updatePurchaseOrderById">
+        update purchase_order
+        <set>
+            <if test="phone != null and phone.length() > 0">
+                phone = #{phone},
+            </if>
+            <if test="address != null and address.length() > 0">
+                address = #{address},
+            </if>
+            <if test="productName != null and productName.length() > 0">
+                product_name = #{productName},
+            </if>
+            <if test="date != null and date.length() > 0">
+                date = #{date},
+            </if>
+            <if test="pay != null">
+                pay = #{pay},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePurchaseOrderById">
+        delete
+        from purchase_order
+        where id = #{id}
+    </delete>
+
+    <select id="selectAllPay" resultType="decimal">
+        select pay
+        from purchase_order
+        where employee_id = #{employeeId};
+    </select>
+
+    <select id="pagePurchaseOrderPrefixWithId" resultType="com.salary.pojo.PurchaseOrder">
+        select <include refid="Base_Information_Column" />
+        from purchase_order
+        <where>
+            <if test="id != null and id.length() > 0">
+                id like #{id}"%"
+            </if>
+        </where>
+        limit #{pageBegin}, #{pageSize}
+    </select>
+
+    <select id="countPrefixWithId" resultType="java.lang.Long">
+        select count(*)
+        from purchase_order
+        <where>
+            <if test="id != null and id.length() > 0">
+                id like #{id}"%"
+            </if>
+        </where>
+    </select>
+
+    <select id="selectPurchaseOrderById" resultType="com.salary.pojo.PurchaseOrder">
+        select <include refid="Base_Information_Column" />
+        from purchase_order
+        where id = #{id}
+    </select>
+
+</mapper>

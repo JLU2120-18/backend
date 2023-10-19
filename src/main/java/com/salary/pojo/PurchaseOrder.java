@@ -1,27 +1,25 @@
 package com.salary.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 描述：
  */
 @Data
-public class PurchaseOrder {
+@NoArgsConstructor
+@AllArgsConstructor
+public class PurchaseOrder implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String id;
     private String employeeId;
     private String productName;
+    private BigDecimal pay;
     private String phone;
     private String address;
     private String date;
-
-    public PurchaseOrder() {
-    }
-
-    public PurchaseOrder(String employeeId, String productName, String phone, String address, String date) {
-        this.employeeId = employeeId;
-        this.productName = productName;
-        this.phone = phone;
-        this.address = address;
-        this.date = date;
-    }
 }

@@ -1,7 +1,7 @@
 # Prophet Salary 接口文档
 
 要求：
-- 根路由是`/api`
+- 根路由是`/napi`
 - 接口只用 `GET`、`POST` 方法，其中`GET`方法使用`@RequestParam`接收参数，`POST`方法使用`@RequestBody`接收整个参数对象再从其中获取
 - 业务错误抛出`400`错误，并在`message`字段中携带错误信息
 - 鉴权方式使用`JWT`，并作为参数而不放在`header`中携带
@@ -61,6 +61,7 @@ interface Response {
 ```typescript
 // POST /employee/create
 interface CreateRequest {
+  jwt: string;
   type: 'salary' | 'commission' | 'wage'; // 月薪 ｜ 佣金 ｜ 时薪
   id: string; // 员工名字的拼音，后端自动检测拼音是否重复，如有重复要自动加上数字
   username: string; // 员工名字
@@ -81,12 +82,16 @@ interface CreateResponse extends CreateRequest {
 
 // GET /employee/get
 interface GetRequest {
+  id?: string;
   jwt: string;
 }
 
 interface GetResponse extends CreateRequest {
   id: string;
   payment: 'mail' | 'receive' | 'bank';
+  mailAddress?: string;
+  bankName?: string;
+  bankAccount?: string;
 }
 
 // GET /employee/gets
@@ -104,6 +109,7 @@ interface GetsResponse {
 
 // GET /employee/sug
 interface GetSugRequest {
+  jwt: string;
   id: string;
 }
 
@@ -132,6 +138,7 @@ interface PaymentResponse {}
 
 // POST /employee/delete
 interface DeleteRequest {
+  jwt: string;
   id: string;
 }
 
@@ -214,7 +221,7 @@ interface GetResponse {
 }
 
 // GET /timecard/available
-// 获取可以使用的考勤卡：isSave=false
+// 获取可以使用的考勤卡：isSave=true
 interface GetAvailableRequest {
   jwt: string;
 }

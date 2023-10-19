@@ -5,17 +5,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
-/**
- * 描述：
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Auth implements Serializable {
+public class TimeCardProjectData implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String id;
-    private String username;
-    private String password;
-    private String role;
+    private String projectName;
+    private BigDecimal duration;
 }

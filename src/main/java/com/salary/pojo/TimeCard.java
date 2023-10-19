@@ -1,32 +1,24 @@
 package com.salary.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * 描述：
  */
 @Data
-public class TimeCard {
+@NoArgsConstructor
+@AllArgsConstructor
+public class TimeCard implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String id;
     private String employeeId;
-    private String projectName;
-    private String isSave;
+    private Boolean isSave;
     private String startTime;
     private String endTime;
     private BigDecimal duration;
-
-    public TimeCard() {
-    }
-
-    public TimeCard(String id, String employeeId,String projectName, String isSave, String startTime, String endTime, BigDecimal duration) {
-        this.id = id;
-        this.employeeId = employeeId;
-        this.projectName = projectName;
-        this.isSave = isSave;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.duration = duration;
-    }
 }

@@ -1,26 +1,18 @@
 package com.salary.pojo;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-/**
- * @author Jialin
- * @create 2023-10-17 13:59
- */
-
 @Data
-public class TimeCardProject {
+@NoArgsConstructor
+@AllArgsConstructor
+public class TimeCardProject implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String id;
     private String projectName;
     private BigDecimal duration;
-
-    public TimeCardProject() {
-    }
-
-    public TimeCardProject(String id, String projectName, BigDecimal duration) {
-        this.id = id;
-        this.projectName = projectName;
-        this.duration = duration;
-    }
 }

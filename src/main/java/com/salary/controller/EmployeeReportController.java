@@ -1,7 +1,7 @@
 package com.salary.controller;
 
-import com.salary.form.AdminReportForm;
-import com.salary.service.AdminReportService;
+import com.salary.form.EmployeeReportForm;
+import com.salary.service.EmployeeReportService;
 import com.salary.utils.JwtUtils;
 import com.salary.vo.ReportVO;
 import io.jsonwebtoken.Claims;
@@ -18,25 +18,27 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * 描述：薪资管理员controller层
+ * 描述：
  */
 @RestController
-@RequestMapping("/napi/admin_report")
-public class AdminReportController {
+@RequestMapping("/napi/employee_report")
+public class EmployeeReportController {
 
     @Autowired
-    AdminReportService adminReportServiceImpl;
+    EmployeeReportService employeeReportServiceImpl;
+
     @PostMapping("/create")
-    public ReportVO create(@RequestBody AdminReportForm form){
+    public ReportVO create(@RequestBody EmployeeReportForm form){
         String jwt = form.getJwt();
         Claims claims = JwtUtils.parseToken(jwt);
-        if (!claims.get("role").toString().equals("payroll")){
+        String role = claims.get("role").toString();
+        if (!role.equals("employee") && !role.equals("commission")){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
+        String employeeId = claims.get("id").toString();
         String type = form.getType();
         String startTime = form.getStartTime();
         String endTime = form.getEndTime();
-        String employeeId = form.getEmployeeId();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime startDate = LocalDateTime.parse(startTime, formatter);
         LocalDateTime endDate = LocalDateTime.parse(endTime, formatter);
@@ -45,13 +47,20 @@ public class AdminReportController {
         long days = duration.toDays();
         if (days < 0 || employeeId == null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        if (type.equals("duration")){
-            return adminReportServiceImpl.createDuration(startTime,endTime,employeeId);
-        }else if(type.equals("salary")){
-            return adminReportServiceImpl.createSalary(startTime,endTime,employeeId);
-        }else{
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        switch (type) {
+            case "duration":
+                return employeeReportServiceImpl.createDuration(startTime, endTime, employeeId);
+            case "proj_duration":
+                String timeCardId = form.getTimeCardId();
+                if (timeCardId == null)
+                    throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+                return employeeReportServiceImpl.createProjDuration(timeCardId, startTime, endTime, employeeId);
+            case "vacation":
+                return employeeReportServiceImpl.createVacation(startTime, endTime, employeeId);
+            case "salary":
+                return employeeReportServiceImpl.createSalary(startTime, endTime, employeeId);
+            default:
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
     }
-
 }

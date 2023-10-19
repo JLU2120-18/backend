@@ -1,21 +1,19 @@
-package com.salary.pojo;
+package com.salary.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
 
-/**
- * 描述：
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Auth implements Serializable {
+public class Page<T> implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String id;
-    private String username;
-    private String password;
-    private String role;
+    protected List<T> data;
+    protected Long total;
+    protected Long size;
+    protected Long current;
 }
