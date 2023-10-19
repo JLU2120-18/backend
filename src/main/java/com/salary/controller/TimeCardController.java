@@ -6,6 +6,7 @@ import com.salary.form.TimeCardUpdateForm;
 import com.salary.pojo.TimeCard;
 import com.salary.service.TimeCardService;
 import com.salary.utils.JwtUtils;
+import com.salary.vo.TimeCardVo;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,9 +27,9 @@ public class TimeCardController {
     TimeCardMapper timeCardMapper;
 
     @GetMapping("/get")
-    public Page<TimeCard> getTimeCard(@RequestParam("jwt") String jwt,
-                                      @RequestParam("pageIndex") Long pageIndex,
-                                      @RequestParam("pageSize") Long pageSize){
+    public Page<TimeCardVo> getTimeCard(@RequestParam("jwt") String jwt,
+                                        @RequestParam("pageIndex") Long pageIndex,
+                                        @RequestParam("pageSize") Long pageSize){
         //验证权限
         Claims claims = JwtUtils.parseToken(jwt);
         String role = claims.get("role").toString();

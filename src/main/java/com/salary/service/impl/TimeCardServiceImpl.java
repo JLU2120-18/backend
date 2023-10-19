@@ -4,8 +4,10 @@ import com.salary.common.Page;
 import com.salary.dao.TimeCardMapper;
 import com.salary.dao.UserMapper;
 import com.salary.pojo.TimeCard;
+import com.salary.pojo.TimeCardProject;
 import com.salary.pojo.TimeCardProjectData;
 import com.salary.service.TimeCardService;
+import com.salary.vo.TimeCardVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +34,7 @@ public class TimeCardServiceImpl implements TimeCardService {
     UserMapper userMapper;
 
     @Override
-    public Page<TimeCard> getTimeCard(String employeeId, Long pageIndex, Long pageSize){
+    public Page<TimeCardVo> getTimeCard(String employeeId, Long pageIndex, Long pageSize){
         //先判断有没有该周工时卡
         // 获取当前日期时间
         LocalDateTime currentDateTime = LocalDateTime.now();
@@ -64,7 +67,14 @@ public class TimeCardServiceImpl implements TimeCardService {
         long offset = (pageIndex - 1) * pageSize;
         List<TimeCard> timeCards = timeCardMapper.selectPageTimeCardById(
                 employeeId,offset,pageSize);
-        return new Page<>(timeCards,total,pageSize,current);
+        //遍历封装
+        List<TimeCardVo> timeCardVos = new ArrayList<>();
+        for (TimeCard timeCard1 : timeCards){
+            List<TimeCardProject> project = timeCardMapper.selectProjByTimeCardId(timeCard1.getId());
+            TimeCardVo timeCardVo = new TimeCardVo(timeCard1,project);
+            timeCardVos.add(timeCardVo);
+        }
+        return new Page<>(timeCardVos,total,pageSize,current);
 
     }
 
