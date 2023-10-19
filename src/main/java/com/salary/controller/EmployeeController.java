@@ -55,7 +55,7 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/sug")
-    public Page<String> suggest(@RequestParam("jwt") String jwt, @RequestParam("id") String id) {
+    public Page<String> suggest(@RequestParam("jwt") String jwt, @RequestParam(value = "id", defaultValue = "") String id) {
         return userService.suggestIds(jwt, id);
     }
 

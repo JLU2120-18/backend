@@ -15,6 +15,8 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.Collections;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -167,13 +169,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public Page<String> suggestIds(String jwt, String id) {
         // 1.判断是否有权限
-        if(hasPermissionToAccess(jwt, "payroll") == null) {
+        if(hasPermissionToAccess(jwt, "payroll") == null && hasPermissionToAccess(jwt, "commission") == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
         // 2.判断id是否合法
         if(id == null || id.length() == 0) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+            return new Page<>(Collections.emptyList(), null, null, null);
         }
 
         Page<String> page = new Page<>();
