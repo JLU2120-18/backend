@@ -1,6 +1,7 @@
 package com.salary.dao;
 
 import com.salary.dto.PurchaseOrderDTO;
+import com.salary.pojo.PurchaseOrder;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.math.BigDecimal;

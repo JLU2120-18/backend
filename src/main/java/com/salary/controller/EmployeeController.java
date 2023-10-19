@@ -2,6 +2,7 @@ package com.salary.controller;
 
 import com.salary.common.Page;
 import com.salary.dto.UserDTO;
+import com.salary.pojo.User;
 import com.salary.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

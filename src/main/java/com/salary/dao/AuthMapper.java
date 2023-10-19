@@ -1,5 +1,6 @@
 package com.salary.dao;
 
+import com.salary.pojo.Auth;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

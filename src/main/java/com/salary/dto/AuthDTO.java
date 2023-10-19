@@ -1,5 +1,6 @@
 package com.salary.dto;
 
+import com.salary.pojo.Auth;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
