@@ -7,9 +7,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-/**
- * 描述：
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

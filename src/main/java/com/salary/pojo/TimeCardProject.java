@@ -7,11 +7,6 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-/**
- * @author Jialin
- * @create 2023-10-17 13:59
- */
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

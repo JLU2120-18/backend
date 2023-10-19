@@ -4,7 +4,6 @@ import com.salary.common.Page;
 import com.salary.dao.AuthMapper;
 import com.salary.dao.PurchaseMapper;
 import com.salary.dto.PurchaseOrderDTO;
-import com.salary.pojo.PurchaseOrder;
 import com.salary.service.PurchaseService;
 import com.salary.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
@@ -28,20 +27,20 @@ public class PurchaseServiceImpl implements PurchaseService {
      * @param jwt
      * @return
      */
-    private String hasPermissionToAccess(String jwt) {
+    private String hasPermissionToAccess(String jwt, String role) {
         // 1.解析jwt
         Claims claims = JwtUtils.parseToken(jwt);
         String userId = claims.get("id").toString();
-        String role = claims.get("role").toString();
+        String userRole = claims.get("role").toString();
 
-        // 2.判断当前操作用户权限是否为commission
-        if (role == null || !"commission".equals(role)) {
+        // 2.判断当前操作用户权限是否为role
+        if (userRole == null || !userRole.equals(role)) {
             return null;
         }
 
         // 3.查询数据库中的role和传过来的role是否一致
         String selectedRole = authMapper.selectRoleById(userId);
-        if (selectedRole == null || !selectedRole.equals(role)) {
+        if (selectedRole == null || !selectedRole.equals(userRole)) {
             return null;
         }
 
@@ -58,7 +57,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public PurchaseOrder createPurchaseOrder(PurchaseOrderDTO purchaseOrder) {
         // 1.获取jwt并解析权限
         String jwt = purchaseOrder.getJwt();
-        String userId = hasPermissionToAccess(jwt);
+        String userId = hasPermissionToAccess(jwt, "commission");
         if (userId == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
@@ -102,14 +101,19 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public Page<PurchaseOrder> getPurchaseOrders(String jwt, String id, long pageIndex, long pageSize) {
         // 1.判断是否有权限
-        if (hasPermissionToAccess(jwt) == null) {
+        if (hasPermissionToAccess(jwt, "commission") == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
         // 2.分页查询以id为前缀的采购工单信息
+        pageIndex = (pageIndex > 0) ? pageIndex : 1L;
+        pageSize = (pageSize > 0) ? pageSize : 10L;
         Page<PurchaseOrder> page = new Page<>();
+        long total = purchaseMapper.countPrefixWithId(id);
+        long pageEnd = (total % pageSize == 0) ? (total / pageSize) : (total / pageSize + 1);
+        pageIndex = Math.min(pageIndex, pageEnd);
         page.setData(purchaseMapper.pagePurchaseOrderPrefixWithId(id, (pageIndex - 1) * pageSize, pageSize));
-        page.setTotal(purchaseMapper.countPrefixWithId(id));
+        page.setTotal(total);
         page.setCurrent(pageIndex);
         page.setSize(pageSize);
         return page;
@@ -125,7 +129,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     @Override
     public PurchaseOrder getPurchaseOrder(String jwt, String id) {
         // 1.判断是否有权限
-        if (hasPermissionToAccess(jwt) == null) {
+        if (hasPermissionToAccess(jwt, "commission") == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
@@ -142,7 +146,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public void updatePurchaseOrder(PurchaseOrderDTO purchaseOrder) {
         // 1.获取jwt并解析, 判断是否有权限
         String jwt = purchaseOrder.getJwt();
-        if (hasPermissionToAccess(jwt) == null) {
+        if (hasPermissionToAccess(jwt, "commission") == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
@@ -170,7 +174,7 @@ public class PurchaseServiceImpl implements PurchaseService {
     public void deletePurchaseOrder(PurchaseOrderDTO purchaseOrder) {
         // 1.获取jwt并解析, 判断是否有权限
         String jwt = purchaseOrder.getJwt();
-        if (hasPermissionToAccess(jwt) == null) {
+        if (hasPermissionToAccess(jwt, "commission") == null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 

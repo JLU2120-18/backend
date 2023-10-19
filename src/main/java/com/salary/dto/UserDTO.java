@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PurchaseOrderDTO extends PurchaseOrder {
+public class UserDTO extends User {
     private String jwt;
 }

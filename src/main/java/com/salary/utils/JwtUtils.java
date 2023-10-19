@@ -48,7 +48,4 @@ public class JwtUtils {
         }
     }
 
-//    public static void main(String[] args) {
-//        System.out.println(JwtUtils.createToken("xianzhi", "employee"));
-//    }
 }
