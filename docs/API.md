@@ -1,7 +1,7 @@
 # Prophet Salary 接口文档
 
 要求：
-- 根路由是`/api`
+- 根路由是`/napi`
 - 接口只用 `GET`、`POST` 方法，其中`GET`方法使用`@RequestParam`接收参数，`POST`方法使用`@RequestBody`接收整个参数对象再从其中获取
 - 业务错误抛出`400`错误，并在`message`字段中携带错误信息
 - 鉴权方式使用`JWT`，并作为参数而不放在`header`中携带
